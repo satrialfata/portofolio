@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-inter: "Inter", sans-serif;
+  --bg: #f8fafc;
+  --sidebar: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --hover: #e2e8f0;
+  --active: #cbd5e1;
+  --activeTxt: #0f172a;
+  --accent: #0f172a;
+  --green: #22c55e;
+}
+
+.dark {
+  --bg: #0d0f14;
+  --sidebar: #0d1115;
+  --card: #161a22;
+  --border: #1f3f4f;
+  --text: #f1f1aa;
+  --muted: #a1a1aa;
+  --hover: #1e2a3a;
+  --active: #1e2a3a;
+  --activeTxt: #f1f5f9;
+  --accent: #ffffff;
+  --green: #22c55e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html {
+  color-scheme: light;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Marquee Animations */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 40s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 40s linear infinite;
+}
+
+.pause-on-hover:hover>div {
+  animation-play-state: paused;
+}
+
+/* Waving Hand Animation */
+@keyframes wave-hand {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform: rotate(14deg);
+  }
+
+  20% {
+    transform: rotate(-8deg);
+  }
+
+  30% {
+    transform: rotate(14deg);
+  }
+
+  40% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  60% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-wave {
+  animation: wave-hand 2s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: 70% 70%;
+}
