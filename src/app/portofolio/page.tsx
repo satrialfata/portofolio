@@ -1,10 +1,10 @@
 import { ExternalLink, GitBranch } from "lucide-react";
 
 const projects = [
+  { title: "News Intelligence RAG Pipeline", category: "Data Engineering", tags: ["NewsAPI", "Gemini Embeddings", "Pinecone", "LangChain", "FastAPI"], github: "https://github.com/satrialfata/news-rag-pipeline", demo: null, description: "Sistem Retrieval-Augmented Generation (RAG) yang mengumpulkan artikel berita terbaru dari NewsAPI, mengubahnya menjadi embedding vektor menggunakan Google Gemini Embeddings, menyimpannya di Pinecone Vector Database, dan menyediakan fitur tanya jawab cerdas melalui FastAPI." },
   { title: "Fraud Detection System", category: "Machine Learning", tags: ["Python", "XGBoost", "SMOTE"], github: "#", demo: "#", description: "Model ML untuk mendeteksi transaksi keuangan mencurigakan menggunakan algoritma ensemble." },
   { title: "Network Anomaly Detector", category: "Cybersecurity", tags: ["TensorFlow", "Wireshark", "Kafka"], github: "#", demo: "#", description: "Sistem IDS berbasis ML untuk mendeteksi anomali jaringan secara real-time dengan LSTM." },
   { title: "Sentiment Analysis Dashboard", category: "NLP", tags: ["FastAPI", "React", "BERT"], github: "#", demo: "#", description: "Aplikasi web analisis sentimen teks media sosial dengan visualisasi interaktif." },
-  { title: "CTF Challenge Writeups", category: "Cybersecurity", tags: ["Reversing", "Forensics", "Crypto"], github: "#", demo: null, description: "Kumpulan writeup solusi CTF dari kompetisi keamanan siber nasional dan internasional." },
   { title: "Customer Segmentation", category: "Data Analysis", tags: ["K-Means", "Plotly", "Pandas"], github: "#", demo: "#", description: "Segmentasi pelanggan menggunakan K-Means dan DBSCAN dengan dashboard visualisasi Plotly." },
   { title: "Vulnerability Scanner CLI", category: "Cybersecurity", tags: ["Go", "CLI", "REST API"], github: "#", demo: null, description: "Tool command-line untuk pemindaian kerentanan aplikasi web secara otomatis." },
 ];

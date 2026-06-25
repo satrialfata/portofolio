@@ -11,9 +11,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Satria AlFata | Portfolio",
+  title: "Satria Alfata",
   description:
-    "Portfolio personal Satria AlFata v1 — Data Scientist & Cybersecurity enthusiast.",
+    "Portfolio personal Satria Alfata v1 — Data Scientist & Cybersecurity enthusiast.",
 };
 
 export default function RootLayout({
