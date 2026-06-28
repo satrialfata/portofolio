@@ -58,7 +58,7 @@ export default function Sidebar() {
           style={{ borderColor: C.border }}
         >
           <img
-            src="https://github.com/satrialfata.png"
+            src="/img/profile.jpeg"
             alt="Satria Alfata"
             className="w-full h-full object-cover"
           />
@@ -90,7 +90,7 @@ export default function Sidebar() {
           <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
             className="text-xs px-3 py-1.5 rounded-full border transition-colors mt-1 font-medium hover:opacity-80"
-            style={{ 
+            style={{
               color: C.text,
               borderColor: C.border,
               backgroundColor: "transparent"

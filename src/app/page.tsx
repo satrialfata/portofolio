@@ -73,8 +73,9 @@ export default function BerandaPage() {
             className="text-sm leading-relaxed mb-8 max-w-md"
             style={{ color: C.muted }}
           >
-            AI &amp; Cybersecurity Enthusiast yang berfokus pada pengembangan model machine learning
-            dan keamanan data untuk menghasilkan solusi yang berdampak nyata.
+            Mahasiswa S1 Sains Data yang berfokus pada Data Engineering dan AI Engineering.
+            Memiliki ketertarikan pada pengolahan data, machine learning, dan pengembangan aplikasi modern.
+            Selalu berusaha membangun solusi yang efektif, inovatif, dan berorientasi pada kebutuhan pengguna.
           </p>
 
           {/* CTA buttons */}
@@ -109,7 +110,7 @@ export default function BerandaPage() {
             }}
           >
             <img
-              src="/img/profile.jpg"
+              src="/img/profile.jpeg"
               alt="Satria Alfata"
               className="w-full h-full object-cover"
             />

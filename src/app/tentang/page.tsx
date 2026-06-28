@@ -1,4 +1,4 @@
-import { Code2, ShieldCheck, Database, BrainCircuit } from "lucide-react";
+import { Code2, ShieldCheck, Database, BrainCircuit, Briefcase, GraduationCap } from "lucide-react";
 
 const skills = [
   { category: "Data Science", icon: BrainCircuit, items: ["Python", "Pandas", "Scikit-learn", "TensorFlow", "Matplotlib"] },
@@ -14,6 +14,30 @@ const info = [
   { label: "Pendidikan", value: "S1 Sains Data" },
 ];
 
+const experiences = [
+  {
+    role: "Software Engineer Intern",
+    company: "PT. Indosoft Digital Enigma",
+    period: "Juli - November 2025",
+    description: "Mengembangkan model prediktif dan melakukan analisis data untuk solusi bisnis.",
+  },
+];
+
+const educations = [
+  {
+    degree: "S1 Sains Data",
+    institution: "Universitas Muhammadiyah Semarang",
+    period: "2025 - Sekarang",
+    description: "Mempelajari analisis data, machine learning, kecerdasan buatan, dan keamanan jaringan.",
+  },
+  {
+    degree: "Pengembangan Perangkat Lunak & Gim",
+    institution: "SMK Negeri 1 Pemalang",
+    period: "2022 - 2025",
+    description: "Fokus pada rekayasa perangkat lunak dan dasar-dasar pemrograman.",
+  }
+];
+
 export default function TentangPage() {
   return (
     <section className="py-4 space-y-8">
@@ -26,10 +50,6 @@ export default function TentangPage() {
         <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>
           Mengenal lebih dekat
         </h1>
-        <p className="text-sm leading-relaxed max-w-2xl" style={{ color: "var(--muted)" }}>
-          Saya adalah seorang mahasiswa Sains Data dengan ketertarikan mendalam pada data science dan keamanan data.
-          Saya percaya bahwa data dan keamanan adalah dua pilar utama dalam membangun sistem digital yang andal.
-        </p>
       </div>
 
       {/* Bio card */}
@@ -41,17 +61,17 @@ export default function TentangPage() {
             style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--text)" }}
           >
             <img
-              src="https://github.com/satrialfata.png"
+              src="/img/profile.jpeg"
               alt="Satria Alfata"
               className="w-full h-full object-cover"
             />
           </div>
           <div>
             <h2 className="text-base font-bold mb-0.5" style={{ color: "var(--text)" }}>Satria AlFata</h2>
-            <p className="text-sm mb-3" style={{ color: "var(--accent)" }}>AI Engineer &amp; Data Scientist</p>
+            <p className="text-sm mb-3" style={{ color: "var(--accent)" }}>AI Engineer &amp; Data Engineer</p>
             <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-              Berfokus pada pengembangan model machine learning dan analisis keamanan sistem.
-              Aktif dalam komunitas open-source dan sering berpartisipasi dalam kompetisi CTF.
+              Saya adalah mahasiswa S1 Sains Data yang berfokus pada Data Engineering dan AI Engineering. Saya memiliki ketertarikan dalam membangun data pipeline, ETL, machine learning, dan aplikasi berbasis AI menggunakan Python, SQL, FastAPI, LangChain, Pinecone, Docker,
+              serta teknologi cloud modern. Saya senang mengubah data menjadi solusi yang dapat diskalakan dan memberikan dampak nyata melalui pemanfaatan data dan kecerdasan buatan.
             </p>
           </div>
         </div>
@@ -67,6 +87,46 @@ export default function TentangPage() {
               <p className="text-sm font-medium" style={{ color: "var(--text)" }}>{i.value}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Pengalaman & Pendidikan */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 mb-10">
+
+        {/* Pengalaman */}
+        <div>
+          <div className="flex items-center gap-2 mb-4">
+            <Briefcase size={18} style={{ color: "var(--accent)" }} />
+            <h2 className="text-base font-bold" style={{ color: "var(--text)" }}>Pengalaman</h2>
+          </div>
+          <div className="space-y-4">
+            {experiences.map((exp, idx) => (
+              <div key={idx} className="p-5 rounded-2xl border relative overflow-hidden" style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}>
+                <div className="absolute top-0 left-0 w-1 h-full" style={{ backgroundColor: "var(--accent)" }} />
+                <h3 className="text-sm font-bold" style={{ color: "var(--text)" }}>{exp.role}</h3>
+                <p className="text-xs mb-3 font-medium" style={{ color: "var(--muted)" }}>{exp.company} • {exp.period}</p>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--muted)" }}>{exp.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pendidikan */}
+        <div>
+          <div className="flex items-center gap-2 mb-4">
+            <GraduationCap size={18} style={{ color: "var(--green)" }} />
+            <h2 className="text-base font-bold" style={{ color: "var(--text)" }}>Pendidikan</h2>
+          </div>
+          <div className="space-y-4">
+            {educations.map((edu, idx) => (
+              <div key={idx} className="p-5 rounded-2xl border relative overflow-hidden" style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}>
+                <div className="absolute top-0 left-0 w-1 h-full" style={{ backgroundColor: "var(--green)" }} />
+                <h3 className="text-sm font-bold" style={{ color: "var(--text)" }}>{edu.degree}</h3>
+                <p className="text-xs mb-3 font-medium" style={{ color: "var(--muted)" }}>{edu.institution} • {edu.period}</p>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--muted)" }}>{edu.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
