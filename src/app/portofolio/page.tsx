@@ -1,21 +1,27 @@
-import { ExternalLink, GitBranch } from "lucide-react";
+"use client";
 
-const projects = [
-  { title: "News Intelligence RAG Pipeline", category: "Data Engineering", tags: ["NewsAPI", "Gemini Embeddings", "Pinecone", "LangChain", "FastAPI"], github: "https://github.com/satrialfata/news-rag-pipeline", demo: null, description: "Sistem Retrieval-Augmented Generation (RAG) yang mengumpulkan artikel berita terbaru dari NewsAPI, mengubahnya menjadi embedding vektor menggunakan Google Gemini Embeddings, menyimpannya di Pinecone Vector Database, dan menyediakan fitur tanya jawab cerdas melalui FastAPI." },
-  { title: "Fraud Detection System", category: "Machine Learning", tags: ["Python", "XGBoost", "SMOTE"], github: "#", demo: "#", description: "Model ML untuk mendeteksi transaksi keuangan mencurigakan menggunakan algoritma ensemble." },
-  { title: "Network Anomaly Detector", category: "Cybersecurity", tags: ["TensorFlow", "Wireshark", "Kafka"], github: "#", demo: "#", description: "Sistem IDS berbasis ML untuk mendeteksi anomali jaringan secara real-time dengan LSTM." },
-  { title: "Sentiment Analysis Dashboard", category: "NLP", tags: ["FastAPI", "React", "BERT"], github: "#", demo: "#", description: "Aplikasi web analisis sentimen teks media sosial dengan visualisasi interaktif." },
-  { title: "Customer Segmentation", category: "Data Analysis", tags: ["K-Means", "Plotly", "Pandas"], github: "#", demo: "#", description: "Segmentasi pelanggan menggunakan K-Means dan DBSCAN dengan dashboard visualisasi Plotly." },
-  { title: "Vulnerability Scanner CLI", category: "Cybersecurity", tags: ["Go", "CLI", "REST API"], github: "#", demo: null, description: "Tool command-line untuk pemindaian kerentanan aplikasi web secara otomatis." },
-];
+import { ExternalLink } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
+import Link from "next/link";
+import { projects } from "@/data/projects";
+import { getTechIcon } from "@/utils/techIcons";
 
 export default function PortofolioPage() {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    target.style.display = 'none';
+    const parent = target.parentElement;
+    if (parent) {
+      parent.innerHTML = `<div class="w-full h-full flex items-center justify-center" style="color: var(--muted)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>`;
+    }
+  };
+
   return (
     <section className="py-4 space-y-8">
 
       {/* Header */}
-      <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text)" }}>Portofolio</p>
+      <div className="animate-fade-up">
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>Portofolio</p>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>Proyek saya</h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
           Kumpulan proyek di bidang machine learning, analisis data, dan keamanan siber.
@@ -24,56 +30,83 @@ export default function PortofolioPage() {
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {projects.map((project) => (
-          <div
-            key={project.title}
-            className="flex flex-col p-5 rounded-2xl border transition-colors duration-150"
-            style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
-          >
-            {/* Category */}
-            <span
-              className="self-start px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border mb-3"
-              style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
-            >
-              {project.category}
-            </span>
-
-            <h2 className="text-sm font-bold mb-2" style={{ color: "var(--text)" }}>{project.title}</h2>
-            <p className="text-xs leading-relaxed flex-1 mb-4" style={{ color: "var(--muted)" }}>{project.description}</p>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-0.5 text-xs rounded-lg border"
-                  style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Links */}
-            <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: "var(--border)" }}>
-              <a
-                href={project.github}
-                className="flex items-center gap-1.5 text-xs font-medium transition-colors"
-                style={{ color: "var(--muted)" }}
+        {projects.map((project, idx) => (
+          <ScrollReveal key={project.slug} delay={idx * 80}>
+            <Link href={`/portofolio/${project.slug}`}>
+              <div
+                className="group flex flex-col rounded-2xl border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden cursor-pointer"
+                style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
               >
-                <GitBranch size={12} strokeWidth={1.8} /> Source
-              </a>
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  className="flex items-center gap-1.5 text-xs font-medium"
-                  style={{ color: "var(--accent)" }}
-                >
-                  <ExternalLink size={12} strokeWidth={1.8} /> Demo
-                </a>
-              )}
-            </div>
-          </div>
+                {/* Project Image */}
+                <div className="relative h-48 w-full overflow-hidden" style={{ backgroundColor: "var(--sidebar)" }}>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={handleImageError}
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(to top, var(--card) 0%, transparent 60%)" }}
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="p-5">
+                  {/* Category */}
+                  <span
+                    className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border mb-3 transition-all duration-300 group-hover:scale-105"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
+                  >
+                    {project.category}
+                  </span>
+
+                  <h2 className="text-sm font-bold mb-2 group-hover:underline" style={{ color: "var(--text)" }}>
+                    {project.title}
+                  </h2>
+                  <p className="text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: "var(--muted)" }}>
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.tags.slice(0, 4).map((tag) => {
+                      const TechIcon = getTechIcon(tag);
+                      return (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs rounded-lg border transition-all duration-300"
+                          style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
+                        >
+                          <TechIcon size={12} className="flex-shrink-0" />
+                          {tag}
+                        </span>
+                      );
+                    })}
+                    {project.tags.length > 4 && (
+                      <span
+                        className="px-2 py-0.5 text-xs rounded-lg border"
+                        style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
+                      >
+                        +{project.tags.length - 4}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Year */}
+                  <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: "var(--border)" }}>
+                    <span className="text-xs" style={{ color: "var(--muted)" }}>
+                      {project.year}
+                    </span>
+                    <div className="flex items-center gap-1 text-xs font-medium transition-all duration-300 group-hover:translate-x-1" style={{ color: "var(--accent)" }}>
+                      Lihat detail
+                      <ExternalLink size={12} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </ScrollReveal>
         ))}
       </div>
     </section>

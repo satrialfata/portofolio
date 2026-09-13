@@ -34,27 +34,16 @@ const C = {
   green: "var(--green)",
 };
 
-export default function Sidebar() {
-  const pathname = usePathname();
-  const { setTheme, resolvedTheme } = useTheme();
-
-  const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-  useEffect(() => setOpen(false), [pathname]);
-
-  const isDark = mounted && resolvedTheme === "dark";
-
-  const SidebarContent = () => (
+function SidebarContent({ pathname, mounted, isDark, onThemeToggle }: { pathname: string; mounted: boolean; isDark: boolean; onThemeToggle: () => void }) {
+  return (
     <div
-      className="flex flex-col h-full"
+      className="flex flex-col h-full animate-sidebar-enter"
       style={{ backgroundColor: C.sidebar }}
     >
       {/* Profile */}
-      <div className="flex flex-col items-center px-5 pt-8 pb-6">
+      <div className="flex flex-col items-center px-5 pt-8 pb-6 animate-fade-in">
         <div
-          className="relative w-[72px] h-[72px] rounded-full overflow-hidden border-2 mb-4"
+          className="relative w-[72px] h-[72px] rounded-full overflow-hidden border-2 mb-4 transition-transform duration-300 hover:scale-110"
           style={{ borderColor: C.border }}
         >
           <img
@@ -64,7 +53,7 @@ export default function Sidebar() {
           />
 
           <span
-            className="absolute bottom-1 right-1 w-3 h-3 rounded-full border-2"
+            className="absolute bottom-1 right-1 w-3 h-3 rounded-full border-2 animate-pulse"
             style={{
               backgroundColor: C.green,
               borderColor: C.sidebar,
@@ -88,14 +77,18 @@ export default function Sidebar() {
 
         {mounted && (
           <button
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-            className="text-xs px-3 py-1.5 rounded-full border transition-colors mt-1 font-medium hover:opacity-80"
+            onClick={onThemeToggle}
+            className="group text-xs px-3 py-1.5 rounded-full border transition-all duration-300 mt-1 font-medium hover:scale-105 hover:shadow-md"
             style={{
               color: C.text,
               borderColor: C.border,
               backgroundColor: "transparent"
             }}
           >
+            <span className="inline-block transition-transform duration-300 group-hover:rotate-180">
+              {isDark ? "☀️" : "🌙"}
+            </span>
+            {" "}
             {isDark ? "Light Mode" : "Dark Mode"}
           </button>
         )}
@@ -109,17 +102,17 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="flex-1 px-3">
         <ul className="space-y-1">
-          {NAV.map(({ href, label, icon: Icon }) => {
+          {NAV.map(({ href, label, icon: Icon }, idx) => {
             const active =
               href === "/"
                 ? pathname === "/"
                 : pathname.startsWith(href);
 
             return (
-              <li key={href}>
+              <li key={href} className={`animate-slide-in-left stagger-${idx + 1}`}>
                 <Link
                   href={href}
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm"
+                  className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all duration-300 hover:translate-x-1 hover:shadow-sm"
                   style={{
                     backgroundColor: active
                       ? C.active
@@ -129,7 +122,7 @@ export default function Sidebar() {
                       : C.text,
                   }}
                 >
-                  <Icon className="text-lg" />
+                  <Icon className="text-lg transition-all duration-300 group-hover:scale-110" />
                   {label}
                 </Link>
               </li>
@@ -151,7 +144,7 @@ export default function Sidebar() {
             href={href}
             target={href.startsWith("mailto") ? undefined : "_blank"}
             rel="noopener noreferrer"
-            className="p-2 rounded-lg"
+            className="p-2 rounded-lg transition-all duration-300 hover:scale-125 hover:-translate-y-0.5"
             style={{ color: C.muted }}
           >
             <Icon />
@@ -168,16 +161,44 @@ export default function Sidebar() {
       </p>
     </div>
   );
+}
+
+export default function Sidebar() {
+  const pathname = usePathname();
+  const { setTheme, resolvedTheme } = useTheme();
+
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setOpen(false));
+    return () => cancelAnimationFrame(id);
+  }, [pathname]);
+
+  const isDark = mounted && resolvedTheme === "dark";
+
+  const handleThemeToggle = () => {
+    setTheme(isDark ? "light" : "dark");
+  };
 
   return (
     <>
       {/* Mobile Header */}
-      <header className="fixed top-0 left-0 right-0 z-40 flex justify-between p-4 md:hidden">
-        <span style={{ color: C.text }}>
+      <header className="fixed top-0 left-0 right-0 z-40 flex justify-between items-center p-4 md:hidden backdrop-blur-md transition-all duration-300" style={{ backgroundColor: "var(--sidebar)" }}>
+        <span className="font-bold transition-all duration-300 hover:scale-110" style={{ color: C.text }}>
           Satria
         </span>
 
-        <button onClick={() => setOpen(!open)}>
+        <button 
+          onClick={() => setOpen(!open)}
+          className="text-xl transition-all duration-300 hover:scale-125 hover:rotate-90"
+          style={{ color: C.text }}
+        >
           {open ? "✕" : "☰"}
         </button>
       </header>
@@ -185,19 +206,19 @@ export default function Sidebar() {
       {/* Overlay */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/60 md:hidden"
+          className="fixed inset-0 bg-black/60 md:hidden transition-opacity duration-300 animate-fade-in"
           onClick={() => setOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-[240px] z-50 transition-transform md:translate-x-0 ${open
+        className={`fixed top-0 left-0 h-full w-[240px] z-50 transition-transform duration-300 ease-out md:translate-x-0 ${open
           ? "translate-x-0"
           : "-translate-x-full"
           }`}
       >
-        <SidebarContent />
+        <SidebarContent pathname={pathname} mounted={mounted} isDark={isDark} onThemeToggle={handleThemeToggle} />
       </aside>
     </>
   );

@@ -12,7 +12,10 @@ export default function GithubContribution({ username }: Props) {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   if (!mounted) {
     return <div className="w-full h-[110px] rounded-xl animate-pulse" style={{ backgroundColor: "var(--border)" }} />;

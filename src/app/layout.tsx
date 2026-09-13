@@ -29,7 +29,7 @@ export default function RootLayout({
           <Sidebar />
 
           {/* Main content — push right by sidebar width on desktop */}
-          <main className="md:ml-[260px] min-h-screen pt-[64px] md:pt-0">
+          <main className="md:ml-[260px] min-h-screen pt-[64px] md:pt-0" id="main-content">
             <div className="max-w-5xl mx-auto px-6 py-10">{children}</div>
           </main>
         </ThemeProvider>
