@@ -15,9 +15,40 @@ export interface Project {
   challenges?: string;
   outcome?: string;
   screenshots?: string[];
+  status?: string;
 }
 
 export const projects: Project[] = [
+  {
+    slug: "marata-data-analytics-platform",
+    title: "Marata — Data Analytics Platform",
+    category: "Data Analytics",
+    year: "2026",
+    image: "/projects/porto-marata.png",
+    tags: ["Laravel", "Vue.js", "Inertia.js", "TypeScript", "Tailwind CSS", "Vite", "PostgreSQL"],
+    github: "#",
+    demo: "#",
+    description: "Platform analisis data yang membantu siapa saja mengolah, memahami, dan menemukan insight dari data dengan lebih mudah.",
+    overview: `Marata adalah platform analisis data yang dirancang untuk membantu pengguna mengubah data mentah menjadi informasi yang lebih mudah dipahami dan bermakna. Pengguna dapat mengunggah dataset, mengeksplorasi struktur dan karakteristik data, melakukan analisis, serta memvisualisasikan informasi melalui dashboard yang interaktif. Marata dibangun dengan pendekatan yang sederhana dan user-friendly, sehingga proses analisis data tidak hanya ditujukan untuk pengguna dengan latar belakang teknis, tetapi juga dapat digunakan oleh mahasiswa, data enthusiast, maupun pengguna lain yang ingin memahami data dengan lebih mudah. Tujuan utama Marata adalah menjembatani kesenjangan antara data yang kompleks dan pemahaman yang sederhana — membantu pengguna bergerak dari data menuju makna.`,
+    role: "Full-stack Data Platform",
+    features: [
+      "Upload dataset dalam format CSV",
+      "Data preview dan eksplorasi dataset",
+      "Automatic Exploratory Data Analysis (EDA)",
+      "Identifikasi struktur dan karakteristik dataset",
+      "Data cleaning dan preprocessing",
+      "Data visualization",
+      "Dashboard analisis data yang interaktif",
+      "Insight dari hasil analisis",
+      "Workspace untuk mengelola dataset dan analisis",
+      "Penyimpanan hasil analisis",
+      "Interface yang sederhana dan mudah digunakan"
+    ],
+    implementation: `Marata dikembangkan sebagai full-stack data analytics platform menggunakan Laravel sebagai backend dan Vue.js dengan Inertia.js sebagai frontend. PostgreSQL digunakan sebagai database utama untuk mengelola data pengguna, dataset, konfigurasi analisis, serta hasil analisis. Platform dirancang untuk menangani alur analisis data mulai dari pengguna mengunggah dataset, melakukan eksplorasi data, memahami karakteristik dataset, hingga menghasilkan visualisasi dan insight. Pada sisi frontend, Marata menggunakan antarmuka yang clean dan intuitive agar informasi dari dataset dapat disajikan secara jelas dan mudah dipahami. Pendekatan ini memungkinkan pengguna untuk lebih fokus pada pertanyaan yang ingin dijawab dari data tanpa harus berhadapan dengan proses teknis yang terlalu kompleks.`,
+    outcome: `Marata menghasilkan sebuah platform analisis data yang mengintegrasikan proses data upload, data exploration, analysis, dan visualization dalam satu lingkungan. Platform ini dirancang untuk membuat proses memahami data menjadi lebih sederhana dan approachable. Data yang awalnya kompleks dapat diolah menjadi informasi yang lebih terstruktur, visual, dan mudah dipahami. Dengan konsep "Dari Data, Jadi Makna.", Marata berfokus pada bagaimana teknologi dapat membantu lebih banyak orang memahami dan mendapatkan insight dari data.`,
+    screenshots: [],
+    status: "In Development",
+  },
   {
     slug: "news-intelligence-rag-pipeline",
     title: "News Intelligence RAG Pipeline",
@@ -42,29 +73,6 @@ export const projects: Project[] = [
     ],
     implementation: "Pipeline dibangun dengan Python, menggunakan FastAPI sebagai backend framework. Data berita dikumpulkan dari NewsAPI secara periodik, diproses melalui cleaning pipeline, kemudian diubah menjadi vector embeddings menggunakan Google Gemini API. Vector disimpan di Pinecone untuk efficient similarity search. LangChain digunakan untuk orchestrate RAG workflow, menggabungkan retrieved context dengan generative model untuk menghasilkan jawaban yang akurat dan contextual.",
     outcome: "Sistem berhasil memproses ribuan artikel berita dan menyediakan interface tanya jawab dengan response time kurang dari 2 detik. Pipeline dapat di-scale untuk handle multiple news sources dan kategori berita yang berbeda.",
-    screenshots: []
-  },
-  {
-    slug: "fraud-detection-system",
-    title: "Fraud Detection System",
-    category: "Machine Learning",
-    year: "2024",
-    image: "/projects/fraud-detection.png",
-    tags: ["Python", "XGBoost", "SMOTE"],
-    github: "#",
-    demo: "#",
-    description: "Model ML untuk mendeteksi transaksi keuangan mencurigakan menggunakan algoritma ensemble.",
-    overview: "Sistem deteksi fraud berbasis machine learning yang dirancang untuk mengidentifikasi transaksi keuangan mencurigakan secara real-time. Sistem ini menggunakan ensemble learning dengan XGBoost untuk mencapai akurasi tinggi dalam mendeteksi pola transaksi yang tidak normal, dengan memanfaatkan teknik SMOTE untuk mengatasi class imbalance.",
-    role: "Machine Learning Engineer",
-    features: [
-      "Anomaly detection pada transaksi keuangan",
-      "Real-time fraud scoring",
-      "Handling imbalanced dataset dengan SMOTE",
-      "Feature engineering dari transaction data",
-      "Model evaluation dengan multiple metrics",
-      "Explainable AI untuk interpretasi prediksi"
-    ],
-    implementation: "Model dibangun menggunakan XGBoost classifier dengan extensive feature engineering. SMOTE (Synthetic Minority Over-sampling Technique) digunakan untuk mengatasi ketidakseimbangan data antara transaksi normal dan fraud. Model di-tune menggunakan cross-validation dan hyperparameter optimization untuk mencapai performa optimal.",
     screenshots: []
   },
   {
@@ -96,7 +104,7 @@ export const projects: Project[] = [
     title: "Sentiment Analysis Dashboard",
     category: "NLP",
     year: "2024",
-    image: "/projects/sentiment-analysis.png",
+    image: "/projects/sentimen-analysis.png",
     tags: ["FastAPI", "React", "BERT"],
     github: "#",
     demo: "#",
@@ -144,7 +152,7 @@ export const projects: Project[] = [
     title: "Vulnerability Scanner CLI",
     category: "Cybersecurity",
     year: "2024",
-    image: "/projects/vuln-scanner.png",
+    image: "/projects/vuln-scan.png",
     tags: ["Go", "CLI", "REST API"],
     github: "#",
     demo: null,

@@ -111,7 +111,7 @@ export default function BerandaPage() {
             }}
           >
             <img
-              src="/img/profile.jpeg"
+                src="https://github.com/satrialfata.png"
               alt="Satria Alfata"
               className="w-full h-full object-cover"
             />

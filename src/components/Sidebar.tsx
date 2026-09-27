@@ -198,7 +198,7 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
         className="text-center text-xs pb-4"
         style={{ color: C.muted }}
       >
-        © {new Date().getFullYear()} Satria Alfata
+        Made with ♥ by satrialfata
       </p>
     </div>
   );

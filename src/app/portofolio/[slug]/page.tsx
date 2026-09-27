@@ -50,12 +50,22 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Hero Section */}
       <div className="space-y-6 animate-fade-up">
         {/* Category Badge */}
-        <span
-          className="inline-block px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg border"
-          style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
-        >
-          {project.category}
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span
+            className="inline-block px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg border"
+            style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
+          >
+            {project.category}
+          </span>
+          {project.status && (
+            <span
+              className="inline-block px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg border"
+              style={{ backgroundColor: "color-mix(in srgb, var(--green) 15%, transparent)", borderColor: "color-mix(in srgb, var(--green) 35%, transparent)", color: "var(--green)" }}
+            >
+              {project.status}
+            </span>
+          )}
+        </div>
 
         {/* Title */}
         <h1 className="text-3xl sm:text-4xl font-bold leading-tight" style={{ color: "var(--text)" }}>

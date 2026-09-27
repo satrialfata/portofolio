@@ -53,13 +53,23 @@ export default function PortofolioPage() {
 
                 {/* Content */}
                 <div className="p-5">
-                  {/* Category */}
-                  <span
-                    className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border mb-3"
-                    style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
-                  >
-                    {project.category}
-                  </span>
+                  {/* Category + Status */}
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span
+                      className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border"
+                      style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
+                    >
+                      {project.category}
+                    </span>
+                    {project.status && (
+                      <span
+                        className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border"
+                        style={{ backgroundColor: "color-mix(in srgb, var(--green) 15%, transparent)", borderColor: "color-mix(in srgb, var(--green) 35%, transparent)", color: "var(--green)" }}
+                      >
+                        {project.status}
+                      </span>
+                    )}
+                  </div>
 
                   <h2 className="text-sm font-bold mb-2 group-hover:underline" style={{ color: "var(--text)" }}>
                     {project.title}

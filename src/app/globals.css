@@ -368,6 +368,61 @@ body {
   }
 }
 
+/* Minimal data-network circuit background: orthogonal paths only, rounded 90° corners */
+@keyframes circuit-pulse {
+  0%, 100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes circuit-travel {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.8;
+  }
+  88% {
+    opacity: 0.8;
+  }
+  96%, 100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes node-glow {
+  0%, 100% {
+    fill-opacity: 0.55;
+  }
+  50% {
+    fill-opacity: 1;
+  }
+}
+
+.circuit-line {
+  animation: circuit-pulse 9s ease-in-out infinite;
+}
+
+.circuit-node {
+  animation: node-glow 7s ease-in-out infinite;
+}
+
+.circuit-flow {
+  animation: circuit-travel 12s linear infinite;
+  filter: drop-shadow(0 0 3px rgba(96, 165, 250, 0.55));
+}
+
+@media (max-width: 768px) {
+  .circuit-extra {
+    display: none;
+  }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -395,6 +450,23 @@ body {
   }
 
   body {
+    animation: none;
+  }
+
+  .circuit-line,
+  .circuit-node {
+    animation: none !important;
+  }
+
+  .circuit-pulse {
+    animation: none;
+  }
+
+  .circuit-flow {
+    animation: none;
+  }
+
+  .circuit-background {
     animation: none;
   }
 }

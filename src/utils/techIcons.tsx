@@ -32,6 +32,10 @@ import {
   SiExpress,
   SiGraphql,
   SiOpenai,
+  SiLaravel,
+  SiVuedotjs,
+  SiInertia,
+  SiVite,
 } from "react-icons/si";
 import { 
   TbBrandPython,
@@ -61,6 +65,8 @@ export const techStackIcons: Record<string, IconType> = {
   "Tailwind CSS": SiTailwindcss,
   "TailwindCSS": SiTailwindcss,
   "Bootstrap": SiBootstrap,
+  "Vue.js": SiVuedotjs,
+  "Inertia.js": SiInertia,
   
   // Backend
   "FastAPI": SiFastapi,
@@ -70,6 +76,7 @@ export const techStackIcons: Record<string, IconType> = {
   "Express": SiExpress,
   "NestJS": SiNodedotjs,
   "GraphQL": SiGraphql,
+  "Laravel": SiLaravel,
   
   // ML/AI
   "TensorFlow": SiTensorflow,
@@ -99,12 +106,13 @@ export const techStackIcons: Record<string, IconType> = {
   "Airflow": TbCode,
   "Kafka": TbDatabase,
   
-  // DevOps
+  // DevOps / Build Tools
   "Docker": SiDocker,
   "Kubernetes": SiKubernetes,
   "Git": SiGit,
   "GitHub": SiGithub,
   "GitLab": SiGitlab,
+  "Vite": SiVite,
   
   // Cloud & Services
   "AWS": TbCloud,

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import AnimatedCircuitBackground from "@/components/AnimatedCircuitBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,6 +26,8 @@ export default function RootLayout({
     <html lang="id" suppressHydrationWarning className={inter.variable}>
       <body className="antialiased min-h-screen">
         <ThemeProvider>
+          <AnimatedCircuitBackground />
+
           {/* Fixed sidebar */}
           <Sidebar />
 
