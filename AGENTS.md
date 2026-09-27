@@ -30,16 +30,33 @@ src/
     page.tsx              Beranda — hero, stats, skills carousel, GitHub contributions
     tentang/page.tsx      Tentang — bio card + skills grid
     portofolio/page.tsx   Portofolio — project cards with tags & links
+    portofolio/[slug]/    Detail portofolio page
     sertifikat/page.tsx   Sertifikat — certificate cards with images
     kontak/page.tsx       Kontak — contact form + social links
+    resources/page.tsx              Resources overview — 3 category cards
+    resources/snippets/page.tsx     Snippets — sequential beginner snippets, search, filter, copy code
+    resources/templates/page.tsx    Templates — Laporan Praktikum card (DOCX)
+    resources/tools/page.tsx        Tools — grouped directory, brand logos, official links
   components/
-    ThemeProvider.tsx      Client wrapper around next-themes
+    AnimatedCounter.tsx    Client — counter animation for stats
+    CodeBlock.tsx          Client — custom syntax highlighter (multi-color, CSS var tokens)
+    GithubContribution.tsx Client — react-github-calendar wrapper
+    MultilingualGreeting.tsx Client — dynamic greeting in multiple languages
+    ScrollReveal.tsx       Client — scroll reveal animation wrapper
     Sidebar.tsx            Client — nav, social icons, theme toggle, mobile menu
     SkillCarousel.tsx      Client — marquee animation row
-    GithubContribution.tsx Client — react-github-calendar wrapper
-  img/                    Profile images
+    ThemeProvider.tsx      Client wrapper around next-themes
+  data/
+    projects.ts           Projects data array
+    snippets.ts           Snippets data — sequential, beginner-first (language, section, step, lang)
+    tools.ts              Tools data array (official links + brand logo paths)
+  utils/
+    techIcons.tsx          Icon mapping utility for tech stack
+  img/                    Profile & logo images
 public/
   sertifikat/             Certificate JPG images
+  templates/              Downloadable DOCX templates
+  tools/                  Brand logo SVGs (Simple Icons, official colors)
 ```
 
 ## Ground Rules (DO NOT Hallucinate)
@@ -61,7 +78,7 @@ public/
 
 ### Routing
 - App Router: files in `src/app/`, each folder = route segment.
-- Current routes: `/` (beranda), `/tentang`, `/portofolio`, `/sertifikat`, `/kontak`.
+- Current routes: `/` (beranda), `/tentang`, `/portofolio`, `/sertifikat`, `/kontak`, `/resources` (+ `/resources/snippets`, `/resources/templates`, `/resources/tools`).
 - Adding a new route = create `src/app/<route>/page.tsx`.
 
 ### Theme
@@ -89,3 +106,14 @@ public/
 - Do NOT use `@apply` or `@tailwind` directives — Tailwind v4 does not support them.
 - Do NOT use `css()` or `clsx()` or class-variance-authority — the codebase uses plain style objects.
 - Do NOT touch `.next/`, `node_modules/`, or build artifacts.
+
+<!-- antislop:start -->
+## antislop
+For UI, copy, people, mobile layout, or code comments work, read `antislop.md` (core) and then the skill for the task:
+- UI / visual: `skills/antislop-ui/SKILL.md`
+- Copy & text: `skills/antislop-copywriting/SKILL.md`
+- People: `skills/antislop-human/SKILL.md`
+- Mobile / responsive: `skills/antislop-layoutmobile/SKILL.md`
+- Code comments: `skills/antislop-code/SKILL.md`
+Before starting, ask the user when antislop applies: during the work, or after it is done.
+<!-- antislop:end -->

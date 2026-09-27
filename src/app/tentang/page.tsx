@@ -18,38 +18,104 @@ const info = [
   { label: "Pendidikan", value: "S1 Sains Data" },
 ];
 
-const experiences = [
+type ExperienceItem = {
+  id: number;
+  role: string;
+  company: string;
+  location: string;
+  type: string;
+  period: string;
+  logo: string;
+  description: string;
+  focus: string[];
+};
+
+type EducationItem = {
+  id: number;
+  degree: string;
+  institution: string;
+  location: string;
+  period: string;
+  logo: string;
+  description: string;
+  focus: string[];
+  projects?: string;
+  extra?: string;
+};
+
+const experiences: ExperienceItem[] = [
   {
     id: 1,
     role: "Software Engineer Intern",
     company: "PT. Indosoft Digital Enigma",
-    location: "Jambi, Indonesia",
+    location: "Bekasi, Indonesia",
     type: "Internship",
-    period: "Juli - November 2025",
+    period: "Juli – November 2025",
     logo: "/img/indosoft-logo.jpg",
-    description: "Mengembangkan model prediktif dan melakukan analisis data untuk solusi bisnis.",
+    description:
+      "Mempelajari dan mengembangkan aplikasi berbasis web menggunakan Laravel dengan menerapkan konsep MVC (Model–View–Controller). Selain pengembangan perangkat lunak, terlibat dalam proses pengolahan dan migrasi data pelanggan menggunakan Microsoft Excel, termasuk pengelompokan data berdasarkan kategori layanan dan kebutuhan bisnis.",
+    focus: [
+      "Laravel Framework",
+      "Konsep MVC (Model–View–Controller)",
+      "PHP Programming",
+      "Database & MySQL",
+      "Data Processing dan Data Migration",
+      "Microsoft Excel",
+      "Analisis dan pengelompokan data pelanggan",
+      "Software Development",
+    ],
   },
 ];
 
-const educations = [
+const educations: EducationItem[] = [
   {
     id: 1,
     degree: "S1 Sains Data",
     institution: "Universitas Muhammadiyah Semarang",
     location: "Semarang, Indonesia",
-    period: "2025 - Sekarang",
+    period: "2025 – Sekarang",
     logo: "/img/unimus-logo.png",
-    description: "Mempelajari analisis data, machine learning, kecerdasan buatan, dan keamanan jaringan.",
+    description:
+      "Mempelajari konsep dan penerapan Data Science, mulai dari statistika, probabilitas, pemrograman, pengolahan data, hingga machine learning. Mengembangkan kemampuan menggunakan Python, R, SQL, dan Excel untuk mengolah, menganalisis, memvisualisasikan, dan memperoleh insight dari data.",
+    focus: [
+      "Data Science",
+      "Python & R Programming",
+      "SQL & Database",
+      "Data Processing",
+      "Exploratory Data Analysis (EDA)",
+      "Data Visualization",
+      "Statistical Analysis",
+      "Probability & Statistics",
+      "Machine Learning",
+      "Struktur Data & Algoritma",
+    ],
+    projects:
+      "Beberapa proyek yang dikerjakan meliputi House Price Prediction, Customer Segmentation menggunakan RFM, analisis data e-commerce, serta proyek Machine Learning dan AI.",
   },
   {
     id: 2,
     degree: "Pengembangan Perangkat Lunak & Gim",
     institution: "SMK Negeri 1 Pemalang",
     location: "Pemalang, Indonesia",
-    period: "2022 - 2025",
+    period: "2022 – 2025",
     logo: "/img/smkn1-logo.png",
-    description: "Fokus pada rekayasa perangkat lunak dan dasar-dasar pemrograman.",
-  }
+    description:
+      "Mempelajari dasar-dasar software development, pemrograman, algoritma, database, dan pengembangan aplikasi. Pembelajaran tersebut menjadi dasar dalam memahami proses pengembangan perangkat lunak dan melanjutkan pendidikan di bidang Data Science.",
+    focus: [
+      "Programming & Algorithm",
+      "PHP",
+      "Laravel",
+      "HTML & CSS",
+      "JavaScript",
+      "MySQL & Database",
+      "Web Development",
+      "Object-Oriented Programming",
+      "Software Development",
+      "Git & GitHub",
+    ],
+    extra:
+      "Mengembangkan berbagai proyek aplikasi dan website sebagai bagian dari pembelajaran, sekaligus membangun pemahaman mengenai struktur aplikasi, database, dan proses pengembangan perangkat lunak.",
+  },
 ];
 
 export default function TentangPage() {
@@ -79,7 +145,7 @@ export default function TentangPage() {
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             {/* Avatar */}
             <div
-              className="w-24 h-24 rounded-2xl flex-shrink-0 border overflow-hidden transition-transform duration-300 hover:scale-105"
+              className="w-24 h-24 rounded-2xl flex-shrink-0 border overflow-hidden"
               style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)" }}
             >
               <img
@@ -140,7 +206,7 @@ export default function TentangPage() {
             {experiences.map((exp) => (
               <div
                 key={exp.id}
-                className="p-5 rounded-2xl border transition-all duration-300 hover:border-opacity-80"
+                className="p-5 rounded-2xl border card-hover"
                 style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
               >
                 <div className="flex gap-4">
@@ -181,9 +247,30 @@ export default function TentangPage() {
                     {exp.description && (
                       <div className="mt-3">
                         {expandedExperience === exp.id && (
-                          <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--muted)" }}>
-                            {exp.description}
-                          </p>
+                          <div className="mb-3 space-y-3">
+                            <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                              {exp.description}
+                            </p>
+                            <div>
+                              <p
+                                className="text-[10px] uppercase tracking-widest mb-2"
+                                style={{ color: "var(--muted)", opacity: 0.7 }}
+                              >
+                                Fokus &amp; Kompetensi
+                              </p>
+                              <div className="flex flex-wrap gap-1.5">
+                                {exp.focus.map((item) => (
+                                  <span
+                                    key={item}
+                                    className="px-2.5 py-1 text-xs rounded-lg border"
+                                    style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
+                                  >
+                                    {item}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
                         )}
                         <button
                           onClick={() => setExpandedExperience(expandedExperience === exp.id ? null : exp.id)}
@@ -224,7 +311,7 @@ export default function TentangPage() {
               </h2>
             </div>
             <p className="text-sm" style={{ color: "var(--muted)" }}>
-              Perjalanan pendidikan saya.
+              Perjalanan pendidikan dan pengembangan kompetensi saya di bidang Data Science dan Software Development.
             </p>
           </div>
 
@@ -233,7 +320,7 @@ export default function TentangPage() {
             {educations.map((edu) => (
               <div
                 key={edu.id}
-                className="p-5 rounded-2xl border transition-all duration-300 hover:border-opacity-80"
+                className="p-5 rounded-2xl border card-hover"
                 style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
               >
                 <div className="flex gap-4">
@@ -249,7 +336,7 @@ export default function TentangPage() {
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';
-                        target.parentElement!.innerHTML = `<span style="color: var(--green); font-size: 20px; font-weight: bold;">${edu.institution.charAt(0)}</span>`;
+                        target.parentElement!.innerHTML = `<span style="color: var(--accent); font-size: 20px; font-weight: bold;">${edu.institution.charAt(0)}</span>`;
                       }}
                     />
                   </div>
@@ -272,14 +359,53 @@ export default function TentangPage() {
                     {edu.description && (
                       <div className="mt-3">
                         {expandedEducation === edu.id && (
-                          <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--muted)" }}>
-                            {edu.description}
-                          </p>
+                          <div className="mb-3 space-y-3">
+                            <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                              {edu.description}
+                            </p>
+                            <div>
+                              <p
+                                className="text-[10px] uppercase tracking-widest mb-2"
+                                style={{ color: "var(--muted)", opacity: 0.7 }}
+                              >
+                                Fokus &amp; Kompetensi
+                              </p>
+                              <div className="flex flex-wrap gap-1.5">
+                                {edu.focus.map((item) => (
+                                  <span
+                                    key={item}
+                                    className="px-2.5 py-1 text-xs rounded-lg border"
+                                    style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
+                                  >
+                                    {item}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            {edu.projects && (
+                              <div>
+                                <p
+                                  className="text-[10px] uppercase tracking-widest mb-1.5"
+                                  style={{ color: "var(--muted)", opacity: 0.7 }}
+                                >
+                                  Proyek
+                                </p>
+                                <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                                  {edu.projects}
+                                </p>
+                              </div>
+                            )}
+                            {edu.extra && (
+                              <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                                {edu.extra}
+                              </p>
+                            )}
+                          </div>
                         )}
                         <button
                           onClick={() => setExpandedEducation(expandedEducation === edu.id ? null : edu.id)}
                           className="inline-flex items-center gap-1.5 text-xs font-medium transition-all duration-300 hover:opacity-70"
-                          style={{ color: "var(--green)" }}
+                          style={{ color: "var(--accent)" }}
                         >
                           {expandedEducation === edu.id ? (
                             <>
@@ -313,7 +439,7 @@ export default function TentangPage() {
             {skills.map(({ category, icon: Icon, items }) => (
               <div
                 key={category}
-                className="p-5 rounded-2xl border transition-all duration-300 hover:border-opacity-80"
+                className="p-5 rounded-2xl border card-hover"
                 style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
               >
                 <div className="flex items-center gap-3 mb-4">
@@ -331,7 +457,7 @@ export default function TentangPage() {
                   {items.map((skill) => (
                     <span
                       key={skill}
-                      className="px-2.5 py-1 text-xs rounded-lg border transition-all duration-300 hover:scale-105"
+                      className="px-2.5 py-1 text-xs rounded-lg border"
                       style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
                     >
                       {skill}

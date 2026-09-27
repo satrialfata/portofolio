@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
 import { projects } from "@/data/projects";
@@ -34,7 +34,7 @@ export default function PortofolioPage() {
           <ScrollReveal key={project.slug} delay={idx * 80}>
             <Link href={`/portofolio/${project.slug}`}>
               <div
-                className="group flex flex-col rounded-2xl border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden cursor-pointer"
+                className="group flex flex-col rounded-2xl border card-hover overflow-hidden cursor-pointer"
                 style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
               >
                 {/* Project Image */}
@@ -42,7 +42,7 @@ export default function PortofolioPage() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={handleImageError}
                   />
                   <div
@@ -55,7 +55,7 @@ export default function PortofolioPage() {
                 <div className="p-5">
                   {/* Category */}
                   <span
-                    className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border mb-3 transition-all duration-300 group-hover:scale-105"
+                    className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border mb-3"
                     style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
                   >
                     {project.category}
@@ -100,7 +100,7 @@ export default function PortofolioPage() {
                     </span>
                     <div className="flex items-center gap-1 text-xs font-medium transition-all duration-300 group-hover:translate-x-1" style={{ color: "var(--accent)" }}>
                       Lihat detail
-                      <ExternalLink size={12} />
+                      <ArrowRight size={12} />
                     </div>
                   </div>
                 </div>

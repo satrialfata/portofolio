@@ -5,7 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 import { getTechIcon } from "@/utils/techIcons";
-import { useState, use } from "react";
+import { useState, useEffect, use } from "react";
 
 interface ProjectDetailPageProps {
   params: Promise<{
@@ -17,6 +17,19 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const { slug } = use(params);
   const project = projects.find((p) => p.slug === slug);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!selectedImage) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedImage(null);
+    };
+    document.addEventListener("keydown", handleEscape);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedImage]);
 
   if (!project) {
     notFound();
@@ -131,7 +144,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             return (
               <span
                 key={tech}
-                className="inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border font-medium"
                 style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
               >
                 <TechIcon size={18} className="flex-shrink-0" />
@@ -184,22 +197,24 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
             Screenshots
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {project.screenshots.map((screenshot, idx) => (
-              <div
-                key={idx}
-                className="rounded-xl overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)" }}
-                onClick={() => setSelectedImage(screenshot)}
-              >
-                <img
-                  src={screenshot}
-                  alt={`${project.title} screenshot ${idx + 1}`}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            ))}
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {project.screenshots.map((screenshot, idx) => (
+                <button
+                  type="button"
+                  key={idx}
+                  className="rounded-xl overflow-hidden border cursor-pointer card-hover p-0"
+                  style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)" }}
+                  onClick={() => setSelectedImage(screenshot)}
+                  aria-label={`Buka screenshot ${idx + 1} ${project.title}`}
+                >
+                  <img
+                    src={screenshot}
+                    alt={`${project.title} screenshot ${idx + 1}`}
+                    className="w-full h-auto object-cover"
+                  />
+                </button>
+              ))}
+            </div>
         </div>
       )}
 
@@ -214,7 +229,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
               style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
             >
               <GitBranch size={16} />
@@ -226,7 +241,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
               style={{ backgroundColor: "var(--accent)", borderColor: "var(--accent)", color: "var(--bg)" }}
             >
               <ExternalLink size={16} />
@@ -243,20 +258,27 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           style={{ backgroundColor: "rgba(0, 0, 0, 0.9)", backdropFilter: "blur(4px)" }}
           onClick={() => setSelectedImage(null)}
         >
-          <button
-            onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300 hover:scale-110 hover:rotate-90"
-            style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
-            aria-label="Close image"
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Screenshot ${project.title}`}
+            className="relative w-full h-full flex items-center justify-center"
           >
-            ✕
-          </button>
-          <img
-            src={selectedImage}
-            alt="Project screenshot"
-            className="max-w-full max-h-[90vh] object-contain rounded-xl"
-            onClick={(e) => e.stopPropagation()}
-          />
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl flex items-center justify-center border transition-opacity duration-300 hover:opacity-70"
+              style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
+              aria-label="Tutup screenshot"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedImage}
+              alt="Project screenshot"
+              className="max-w-full max-h-[90vh] object-contain rounded-xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
         </div>
       )}
     </section>

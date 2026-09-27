@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Satria Alfata",
   description:
-    "Portfolio personal Satria Alfata v1 — Data Scientist & Cybersecurity enthusiast.",
+    "Portfolio personal Satria Alfata. Data Science, Machine Learning, analisis data, dan Software Development.",
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
           {/* Fixed sidebar */}
           <Sidebar />
 
-          {/* Main content — push right by sidebar width on desktop */}
+          {/* Main content: push right by sidebar width on desktop */}
           <main className="md:ml-[260px] min-h-screen pt-[64px] md:pt-0" id="main-content">
             <div className="max-w-5xl mx-auto px-6 py-10">{children}</div>
           </main>

@@ -3,73 +3,7 @@
 import { ExternalLink, CheckCircle2, X } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useState, useEffect } from "react";
-
-interface Certificate {
-  title: string;
-  issuer: string;
-  date: string;
-  category: string;
-  credential: string;
-  image: string;
-  description: string;
-}
-
-const certificates: Certificate[] = [
-  { 
-    title: "Junior Website Developer", 
-    issuer: "BNSP (Badan Nasional Sertifikasi Profesi)", 
-    date: "2025", 
-    category: "Web Developer", 
-    credential: "#", 
-    image: "/sertifikat/sertifikat_bnsp.jpeg",
-    description: "Sertifikasi kompetensi profesional di bidang pengembangan website yang dikeluarkan oleh Badan Nasional Sertifikasi Profesi, memvalidasi kemampuan dalam merancang dan mengembangkan aplikasi web."
-  },
-  { 
-    title: "Temuan Kerentanan Website Provinsi DKI Jakarta", 
-    issuer: "Diskominfo DKI Jakarta", 
-    date: "2025", 
-    category: "Cybersecurity", 
-    credential: "#", 
-    image: "/sertifikat/diskominfo_jakarta.jpeg",
-    description: "Penghargaan atas kontribusi dalam menemukan dan melaporkan kerentanan keamanan pada sistem website Pemerintah Provinsi DKI Jakarta, membantu meningkatkan keamanan infrastruktur digital publik."
-  },
-  { 
-    title: "Temuan Kerentanan Website Provinsi DIY", 
-    issuer: "Diskominfo DIY", 
-    date: "2025", 
-    category: "Cybersecurity", 
-    credential: "#", 
-    image: "/sertifikat/diskominfo_diy.jpeg",
-    description: "Apresiasi dari Dinas Komunikasi dan Informatika Provinsi DIY atas penemuan celah keamanan pada sistem informasi pemerintah daerah, berkontribusi pada peningkatan keamanan siber."
-  },
-  { 
-    title: "Temuan Kerentanan Website KPI", 
-    issuer: "Komisi Penyiaran Indonesia", 
-    date: "2025", 
-    category: "Cybersecurity", 
-    credential: "#", 
-    image: "/sertifikat/kpi.jpeg",
-    description: "Sertifikat penghargaan dari Komisi Penyiaran Indonesia atas identifikasi kerentanan pada sistem website KPI, membantu menjaga integritas dan keamanan platform digital lembaga negara."
-  },
-  { 
-    title: "Temuan Kerentanan Website KPK", 
-    issuer: "Komisi Pemberantasan Korupsi", 
-    date: "2025", 
-    category: "Cybersecurity", 
-    credential: "#", 
-    image: "/sertifikat/kpk.jpeg",
-    description: "Penghargaan dari Komisi Pemberantasan Korupsi atas pelaporan responsible disclosure terkait kerentanan keamanan website KPK, mendukung perlindungan sistem informasi lembaga antikorupsi."
-  },
-  { 
-    title: "Pelatihan Pengembangan Web dengan Django", 
-    issuer: "Penyelenggara Pelatihan", 
-    date: "2025", 
-    category: "Web Developer", 
-    credential: "#", 
-    image: "/sertifikat/sertifikat_pelatihan_django.jpeg",
-    description: "Sertifikat kelulusan pelatihan intensif pengembangan aplikasi web menggunakan framework Django, mencakup konsep MVC, ORM, authentication, dan deployment aplikasi Python berbasis web."
-  },
-];
+import { certificates, type Certificate } from "@/data/certificates";
 
 export default function SertifikatPage() {
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
@@ -107,23 +41,24 @@ export default function SertifikatPage() {
 
       {/* Summary Badge */}
       <div
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md animate-fade-up stagger-1"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium animate-fade-up stagger-1"
         style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--muted)" }} >
-        <CheckCircle2 size={14} style={{ color: "#35ba5fff" }} />
+        <CheckCircle2 size={14} style={{ color: "var(--green)" }} />
         <span>{certificates.length} Sertifikat Diperoleh</span>
       </div>
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {certificates.map((cert, idx) => (
           <ScrollReveal key={cert.title} delay={idx * 80}>
-            <div
+            <button
+              type="button"
               onClick={() => setSelectedCertificate(cert)}
-              className="group flex flex-col rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden cursor-pointer"
+              className="group w-full text-left flex flex-col rounded-2xl border card-hover overflow-hidden cursor-pointer"
               style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
             >
             {/* Image with Gradient */}
             <div className="relative h-32 w-full flex-shrink-0 overflow-hidden">
-              <img src={cert.image} alt={cert.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+              <img src={cert.image} alt={cert.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <div
                 className="absolute inset-0"
                 style={{ background: "linear-gradient(to top, var(--card) 0%, transparent 100%)" }}
@@ -133,7 +68,7 @@ export default function SertifikatPage() {
             <div className="flex gap-4 px-5 pb-5 pt-2">
               {/* Icon */}
               <span
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border transition-all duration-300 group-hover:scale-110 group-hover:rotate-12"
+                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border transition-colors duration-300"
                 style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--accent)" }}
               >
                 <CheckCircle2 size={16} />
@@ -149,7 +84,7 @@ export default function SertifikatPage() {
 
                 <div className="flex flex-wrap items-center gap-2">
                   <span
-                    className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-lg border transition-all duration-300 group-hover:scale-105"
+                    className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-lg border"
                     style={{ backgroundColor: "color-mix(in srgb, var(--accent) 15%, transparent)", borderColor: "color-mix(in srgb, var(--accent) 35%, transparent)", color: "var(--accent)" }}
                   >
                     {cert.category}
@@ -173,7 +108,7 @@ export default function SertifikatPage() {
                 </svg>
               </div>
             </div>
-          </div>
+          </button>
           </ScrollReveal>
         ))}
       </div>
@@ -186,6 +121,9 @@ export default function SertifikatPage() {
           onClick={() => setSelectedCertificate(null)}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedCertificate.title}
             className="relative w-full max-w-6xl max-h-[90vh] overflow-auto rounded-2xl border shadow-2xl animate-scale-in"
             style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
             onClick={(e) => e.stopPropagation()}
@@ -193,9 +131,9 @@ export default function SertifikatPage() {
             {/* Close Button */}
             <button
               onClick={() => setSelectedCertificate(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300 hover:scale-110 hover:rotate-90"
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl flex items-center justify-center border transition-opacity duration-300 hover:opacity-70"
               style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
-              aria-label="Close modal"
+              aria-label="Tutup detail sertifikat"
             >
               <X size={20} />
             </button>
@@ -263,7 +201,7 @@ export default function SertifikatPage() {
                     href={selectedCertificate.credential}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-medium text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg w-fit"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-medium text-sm transition-all duration-300 hover:-translate-y-0.5 w-fit"
                     style={{ backgroundColor: "var(--accent)", borderColor: "var(--accent)", color: "var(--bg)" }}
                   >
                     <ExternalLink size={16} />

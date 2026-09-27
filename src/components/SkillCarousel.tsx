@@ -51,26 +51,16 @@ export default function SkillCarousel() {
 function SkillChip({ label, imgUrl }: { label: string; imgUrl: string }) {
   return (
     <span
-      className="inline-flex items-center gap-2 px-4 py-2 border text-[13px] font-medium transition-all duration-300 flex-shrink-0 cursor-default hover:scale-105 hover:-translate-y-0.5"
+      className="skill-chip inline-flex items-center gap-2 px-4 py-2 border text-[13px] font-medium flex-shrink-0 cursor-default"
       style={{
         backgroundColor: "var(--card)",
         borderColor: "var(--border)",
         color: "var(--muted)",
         borderRadius: "8px",
       }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = "var(--hover)";
-        e.currentTarget.style.color = "var(--text)";
-        e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = "var(--card)";
-        e.currentTarget.style.color = "var(--muted)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
     >
       {imgUrl ? (
-        <img src={imgUrl} alt={label} className="w-4 h-4 object-contain transition-transform duration-300" />
+        <img src={imgUrl} alt={label} className="w-4 h-4 object-contain" />
       ) : (
         <div className="w-4 h-4 rounded-sm" style={{ backgroundColor: "var(--muted)", opacity: 0.2 }} />
       )}

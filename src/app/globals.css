@@ -15,6 +15,19 @@
   --activeTxt: #0f172a;
   --accent: #0f172a;
   --green: #22c55e;
+  --logo-bg: #f1f5f9;
+
+  /* Syntax highlighting (light) */
+  --code-text: #24292f;
+  --code-keyword: #cf222e;
+  --code-string: #0a3069;
+  --code-function: #8250df;
+  --code-command: #116329;
+  --code-variable: #953800;
+  --code-number: #b35900;
+  --code-comment: #6e7781;
+  --code-operator: #005cc5;
+  --code-class: #1a6793;
 }
 
 .dark {
@@ -29,6 +42,19 @@
   --activeTxt: #f1f5f9;
   --accent: #ffffff;
   --green: #22c55e;
+  --logo-bg: #f1f5f9;
+
+  /* Syntax highlighting (dark) */
+  --code-text: #abb2bf;
+  --code-keyword: #c678dd;
+  --code-string: #98c379;
+  --code-function: #dcdcaa;
+  --code-command: #61afef;
+  --code-variable: #e06c75;
+  --code-number: #d19a66;
+  --code-comment: #7f848e;
+  --code-operator: #56b6c2;
+  --code-class: #e5c07b;
 }
 
 * {
@@ -237,6 +263,8 @@ html {
 .stagger-4 { animation-delay: 0.4s; }
 .stagger-5 { animation-delay: 0.5s; }
 .stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }
 
 /* Initial state for animations */
 .animate-fade-up,
@@ -290,32 +318,34 @@ body {
 }
 
 /* Floating animation for profile image */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+/* Removed: DESIGN.md §18 explicitly avoids continuous floating animations. */
+
+/* Card hover: one shared hover language for every card (accent-tinted border, no shadow soup) */
+.card-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
 }
 
-@media (max-width: 768px) {
-  .animate-float {
-    animation: none;
-  }
+/* Focus: one visible indicator for every interactive element (never outline: none without this) */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Hover glow effect */
-.hover-glow {
-  transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Skill chip hover: same quiet lift as cards, no shadow, no JS style patching */
+.skill-chip {
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.hover-glow:hover {
-  box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--border), 0 24px 48px rgba(0,0,0,0.5), 0 0 30px rgba(34, 197, 94, 0.15);
+.skill-chip:hover {
+  background-color: var(--hover);
+  color: var(--text);
+  transform: translateY(-2px);
 }
 
 /* Scroll Reveal */
@@ -360,8 +390,8 @@ body {
     animation: none;
   }
 
-  .animate-float {
-    animation: none;
+  .card-hover:hover {
+    transform: none;
   }
 
   body {

@@ -4,6 +4,10 @@ import GithubContribution from "@/components/GithubContribution";
 import SkillCarousel from "@/components/SkillCarousel";
 import MultilingualGreeting from "@/components/MultilingualGreeting";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { projects } from "@/data/projects";
+import { certificates } from "@/data/certificates";
+import { snippets } from "@/data/snippets";
+import { tools } from "@/data/tools";
 
 /* ─── Tokens ─── */
 const C = {
@@ -14,13 +18,13 @@ const C = {
   green: "var(--green)",
 };
 
+/* Counted directly from the data files, so every number here is verifiable (R-17). */
 const stats = [
-  { value: "15+", label: "Proyek Selesai" },
-  { value: "8+", label: "Sertifikat" },
-  { value: "3+", label: "Tahun Pengalaman" },
-  { value: "5+", label: "Teknologi Dikuasai" },
+  { value: String(projects.length), label: "Proyek" },
+  { value: String(certificates.length), label: "Sertifikat" },
+  { value: String(snippets.length), label: "Snippet" },
+  { value: String(tools.length), label: "Tools" },
 ];
-
 
 
 export default function BerandaPage() {
@@ -30,7 +34,7 @@ export default function BerandaPage() {
       {/* ════════════ HERO ════════════ */}
       <div className="flex flex-col-reverse sm:flex-row items-center gap-8 sm:gap-12">
 
-        {/* Left — text */}
+        {/* Left: text */}
         <div className="flex-1 min-w-0">
           {/* Badge */}
           <MultilingualGreeting />
@@ -79,7 +83,7 @@ export default function BerandaPage() {
           <div className="flex flex-wrap gap-3 animate-fade-up stagger-4">
             <Link
               href="/portofolio"
-              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-300 hover:opacity-75 hover:scale-105 hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
               style={{ borderColor: C.text, color: C.text }}
             >
               Lihat Portofolio
@@ -87,7 +91,7 @@ export default function BerandaPage() {
             </Link>
             <a
               href="/cv.pdf"
-              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-medium transition-all duration-300 hover:opacity-75 hover:scale-105 hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-medium transition-all duration-300 hover:-translate-y-0.5"
               style={{ backgroundColor: C.card, borderColor: C.border, color: C.muted }}
             >
               <Download size={14} className="transition-transform duration-300 group-hover:translate-y-0.5" />
@@ -96,10 +100,10 @@ export default function BerandaPage() {
           </div>
         </div>
 
-        {/* Right — avatar */}
+        {/* Right: avatar */}
         <div className="flex-shrink-0 flex justify-center sm:pr-10 lg:pr-56 animate-scale-in stagger-2">
           <div
-            className="relative w-72 h-72 sm:w-72 sm:h-72 rounded-full flex items-center justify-center font-bold select-none overflow-hidden transition-all duration-500 hover:scale-105 hover-glow animate-float"
+            className="relative w-72 h-72 sm:w-72 sm:h-72 rounded-full flex items-center justify-center font-bold select-none overflow-hidden transition-transform duration-300 hover:scale-105"
             style={{
               backgroundColor: "var(--card)",
               border: "1px solid var(--border)",
@@ -120,12 +124,10 @@ export default function BerandaPage() {
         {stats.map((s, idx) => (
           <div
             key={s.label}
-            className={`flex flex-col items-center px-4 py-5 rounded-xl border text-center transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl animate-fade-up stagger-${idx + 1}`}
+            className={`flex flex-col items-center px-4 py-5 rounded-xl border text-center animate-fade-up stagger-${idx + 1}`}
             style={{
               backgroundColor: C.card,
               borderColor: C.border,
-              boxShadow: "0 1px 6px rgba(0,0,0,0.35)",
-              borderRadius: "12px",
             }}
           >
             <p className="text-2xl font-bold mb-1" style={{ color: C.text }}>
@@ -143,7 +145,7 @@ export default function BerandaPage() {
         {/* Section header */}
         <div className="flex items-center gap-3 mb-5">
           <span
-            className="flex items-center justify-center w-8 h-8 rounded-lg border text-[11px] font-bold font-mono tracking-tighter transition-all duration-300 hover:scale-110 hover:rotate-12"
+            className="flex items-center justify-center w-8 h-8 rounded-lg border text-[11px] font-bold font-mono tracking-tighter"
             style={{ backgroundColor: C.card, borderColor: C.border, color: C.muted }}
           >
             {"<>"}
@@ -178,12 +180,10 @@ export default function BerandaPage() {
 
         {/* Calendar card */}
         <div
-          className="p-5 border overflow-x-auto transition-all duration-300 hover:shadow-lg"
+          className="p-5 border overflow-x-auto card-hover"
           style={{
             backgroundColor: C.card,
             borderColor: C.border,
-            borderRadius: "12px",
-            boxShadow: "0 1px 6px rgba(0,0,0,0.35)",
           }}
         >
           <GithubContribution username="satrialfata" />
