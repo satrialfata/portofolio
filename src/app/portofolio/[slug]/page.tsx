@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 import { getTechIcon } from "@/utils/techIcons";
 import { useState, useEffect, use } from "react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 interface ProjectDetailPageProps {
   params: Promise<{
@@ -17,6 +18,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const { slug } = use(params);
   const project = projects.find((p) => p.slug === slug);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!selectedImage) return;
@@ -44,7 +46,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         style={{ color: "var(--muted)" }}
       >
         <ArrowLeft size={16} />
-        Kembali ke Portofolio
+        {t.portfolio.backToPortfolio}
       </Link>
 
       {/* Hero Section */}
@@ -114,7 +116,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Overview Section */}
       <div className="space-y-4 animate-fade-up stagger-1">
         <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-          Overview
+          {t.portfolio.overview}
         </h2>
         <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--muted)" }}>
           {project.overview}
@@ -124,7 +126,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Features Section */}
       <div className="space-y-4 animate-fade-up stagger-2">
         <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-          Features
+          {t.portfolio.features}
         </h2>
         <ul className="space-y-2 max-w-3xl">
           {project.features.map((feature, idx) => (
@@ -146,7 +148,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Tech Stack Section */}
       <div className="space-y-4 animate-fade-up stagger-3">
         <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-          Tech Stack
+          {t.portfolio.techStack}
         </h2>
         <div className="flex flex-wrap gap-3">
           {project.tags.map((tech) => {
@@ -169,7 +171,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {project.implementation && (
         <div className="space-y-4 animate-fade-up stagger-4">
           <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-            Implementation
+            {t.portfolio.implementation}
           </h2>
           <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--muted)" }}>
             {project.implementation}
@@ -181,7 +183,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {project.challenges && (
         <div className="space-y-4 animate-fade-up stagger-5">
           <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-            Challenges
+            {t.portfolio.challenges}
           </h2>
           <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--muted)" }}>
             {project.challenges}
@@ -193,7 +195,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {project.outcome && (
         <div className="space-y-4 animate-fade-up stagger-6">
           <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-            Outcome
+            {t.portfolio.outcome}
           </h2>
           <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--muted)" }}>
             {project.outcome}
@@ -205,7 +207,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {project.screenshots && project.screenshots.length > 0 && (
         <div className="space-y-4 animate-fade-up stagger-7">
           <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-            Screenshots
+            {t.portfolio.screenshots}
           </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {project.screenshots.map((screenshot, idx) => (
@@ -215,7 +217,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   className="rounded-xl overflow-hidden border cursor-pointer card-hover p-0"
                   style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)" }}
                   onClick={() => setSelectedImage(screenshot)}
-                  aria-label={`Buka screenshot ${idx + 1} ${project.title}`}
+                  aria-label={`${t.portfolio.openScreenshot} ${idx + 1} ${project.title}`}
                 >
                   <img
                     src={screenshot}
@@ -231,7 +233,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Links Section */}
       <div className="space-y-4 animate-fade-up stagger-8">
         <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-          Links
+          {t.portfolio.links}
         </h2>
         <div className="flex flex-wrap gap-3">
           {project.github && project.github !== "#" && (
@@ -243,7 +245,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
             >
               <GitBranch size={16} />
-              View Source Code
+              {t.portfolio.viewSourceCode}
             </a>
           )}
           {project.demo && project.demo !== "#" && (
@@ -255,7 +257,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               style={{ backgroundColor: "var(--accent)", borderColor: "var(--accent)", color: "var(--bg)" }}
             >
               <ExternalLink size={16} />
-              Live Demo
+              {t.portfolio.liveDemo}
             </a>
           )}
         </div>
@@ -278,7 +280,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               onClick={() => setSelectedImage(null)}
               className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl flex items-center justify-center border transition-opacity duration-300 hover:opacity-70"
               style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
-              aria-label="Tutup screenshot"
+              aria-label={t.portfolio.closeScreenshot}
             >
               ✕
             </button>

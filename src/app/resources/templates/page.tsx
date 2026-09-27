@@ -3,18 +3,10 @@
 import { useEffect, useState } from "react";
 import { ChevronDown, Download, FileText, X } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-
-const templateStructure = [
-  "Cover",
-  "BAB I: Pendahuluan",
-  "BAB II: Dasar Teori",
-  "BAB III: Metodologi",
-  "BAB IV: Hasil & Pembahasan",
-  "BAB V: Kesimpulan",
-  "Daftar Pustaka",
-];
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function TemplatesPage() {
+  const { t } = useTranslation();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [pdfOpen, setPdfOpen] = useState(false);
 
@@ -31,18 +23,20 @@ export default function TemplatesPage() {
     };
   }, [pdfOpen]);
 
+  const templateStructure = t.templates.templateStructure;
+
   return (
     <section className="py-4 space-y-8">
       {/* Header */}
       <div className="animate-fade-up">
         <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>
-          Resources / Templates
+          {t.templates.sectionLabel}
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>
-          Templates
+          {t.templates.title}
         </h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
-          Template dokumen yang bisa langsung diedit dan disesuaikan untuk kebutuhan kuliah.
+          {t.templates.subtitle}
         </p>
       </div>
 
@@ -62,11 +56,10 @@ export default function TemplatesPage() {
               </div>
               <div className="min-w-0">
                 <h2 className="text-lg font-semibold mb-1" style={{ color: "var(--text)" }}>
-                  Template Laporan Praktikum
+                  {t.templates.templateTitle}
                 </h2>
                 <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--muted)" }}>
-                  Template laporan praktikum berformat DOCX yang dapat diedit dan disesuaikan,
-                  mulai dari cover hingga daftar pustaka.
+                  {t.templates.templateDesc}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {["DOCX", "PDF Preview", "Editable", "Version 1.0"].map((meta) => (
@@ -89,7 +82,7 @@ export default function TemplatesPage() {
               className="mt-5 w-full flex items-center justify-between px-4 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200"
               style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--text)" }}
             >
-              Preview struktur dokumen
+              {t.templates.previewStructure}
               <ChevronDown
                 size={16}
                 className={`transition-transform duration-200 ${previewOpen ? "rotate-180" : ""}`}
@@ -126,7 +119,7 @@ export default function TemplatesPage() {
                 style={{ backgroundColor: "var(--accent)", color: "var(--bg)" }}
               >
                 <Download size={15} />
-                Download DOCX
+                {t.templates.downloadDocx}
               </a>
               <button
                 onClick={() => setPdfOpen(true)}
@@ -134,7 +127,7 @@ export default function TemplatesPage() {
                 style={{ backgroundColor: "transparent", borderColor: "var(--border)", color: "var(--text)" }}
               >
                 <FileText size={15} />
-                Preview
+                {t.templates.preview}
               </button>
             </div>
           </div>
@@ -151,7 +144,7 @@ export default function TemplatesPage() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Preview PDF Template Laporan Praktikum"
+            aria-label={t.templates.previewTitle}
             className="relative w-full max-w-4xl h-[85vh] rounded-2xl border shadow-2xl animate-scale-in overflow-hidden flex flex-col"
             style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
             onClick={(e) => e.stopPropagation()}
@@ -164,7 +157,7 @@ export default function TemplatesPage() {
               <div className="flex items-center gap-2 min-w-0">
                 <FileText size={16} style={{ color: "var(--accent)" }} />
                 <p className="text-sm font-semibold truncate" style={{ color: "var(--text)" }}>
-                  Template Laporan Praktikum: Preview PDF
+                  {t.templates.previewTitle}
                 </p>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
@@ -175,11 +168,11 @@ export default function TemplatesPage() {
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all duration-200 hover:-translate-y-0.5"
                   style={{ borderColor: "var(--border)", color: "var(--muted)" }}
                 >
-                  Buka di tab baru
+                  {t.templates.openInNewTab}
                 </a>
                 <button
                   onClick={() => setPdfOpen(false)}
-                  aria-label="Tutup preview"
+                  aria-label={t.templates.closePreview}
                   className="w-9 h-9 rounded-lg flex items-center justify-center border transition-opacity duration-300 hover:opacity-70"
                   style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--text)" }}
                 >
@@ -191,7 +184,7 @@ export default function TemplatesPage() {
             {/* PDF viewer */}
             <iframe
               src="/templates/laporan-praktikum.pdf"
-              title="Preview Template Laporan Praktikum"
+              title={t.templates.previewTitle}
               className="flex-1 w-full"
               style={{ border: "none", backgroundColor: "var(--bg)" }}
             />

@@ -5,8 +5,10 @@ import { Check, Copy, Search, X } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import CodeBlock from "@/components/CodeBlock";
 import { LANGUAGE_ORDER, SNIPPET_LANGUAGES, snippets } from "@/data/snippets";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function SnippetsPage() {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [language, setLanguage] = useState("All");
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
@@ -54,14 +56,13 @@ export default function SnippetsPage() {
       {/* Header */}
       <div className="animate-fade-up">
         <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>
-          Resources / Snippets
+          {t.snippets.sectionLabel}
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>
-          Snippets
+          {t.snippets.title}
         </h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
-          Snippet dasar yang disusun berurutan, mulai dari hal paling fundamental
-          yang biasanya dibutuhkan saat pertama kali mempelajari suatu teknologi.
+          {t.snippets.subtitle}
         </p>
       </div>
 
@@ -76,8 +77,8 @@ export default function SnippetsPage() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search snippets..."
-          aria-label="Search snippets"
+          placeholder={t.snippets.searchPlaceholder}
+          aria-label={t.snippets.searchPlaceholder}
           className="w-full rounded-xl border pl-10 pr-10 py-2.5 text-sm transition-all duration-200"
           style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
         />
@@ -120,7 +121,7 @@ export default function SnippetsPage() {
           className="rounded-2xl border p-8 text-center text-sm"
           style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--muted)" }}
         >
-          Tidak ada snippet yang cocok dengan pencarianmu.
+          {t.snippets.empty}
         </div>
       ) : (
         <div className="space-y-10">
@@ -133,7 +134,7 @@ export default function SnippetsPage() {
                 </h2>
                 <div className="flex-1 h-px" style={{ backgroundColor: "var(--border)" }} />
                 <span className="text-xs" style={{ color: "var(--muted)" }}>
-                  {group.items.length} snippets
+                  {group.items.length} {t.snippets.snippetsCount}
                 </span>
               </div>
 
@@ -202,11 +203,11 @@ export default function SnippetsPage() {
                           >
                             {copiedSlug === snippet.slug ? (
                               <>
-                                <Check size={13} /> Copied!
+                                <Check size={13} /> {t.snippets.copied}
                               </>
                             ) : (
                               <>
-                                <Copy size={13} /> Copy Code
+                                <Copy size={13} /> {t.snippets.copyCode}
                               </>
                             )}
                           </button>

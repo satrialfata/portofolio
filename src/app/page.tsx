@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowRight, Download, MapPin, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import GithubContribution from "@/components/GithubContribution";
@@ -8,6 +10,7 @@ import { projects } from "@/data/projects";
 import { certificates } from "@/data/certificates";
 import { snippets } from "@/data/snippets";
 import { tools } from "@/data/tools";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /* ─── Tokens ─── */
 const C = {
@@ -18,16 +21,16 @@ const C = {
   green: "var(--green)",
 };
 
-/* Counted directly from the data files, so every number here is verifiable (R-17). */
-const stats = [
-  { value: String(projects.length), label: "Proyek" },
-  { value: String(certificates.length), label: "Sertifikat" },
-  { value: String(snippets.length), label: "Snippet" },
-  { value: String(tools.length), label: "Tools" },
-];
-
-
 export default function BerandaPage() {
+  const { t } = useTranslation();
+
+  const stats = [
+    { value: String(projects.length), label: t.home.statsProjects },
+    { value: String(certificates.length), label: t.home.statsCertificates },
+    { value: String(snippets.length), label: t.home.statsSnippets },
+    { value: String(tools.length), label: t.home.statsTools },
+  ];
+
   return (
     <section className="space-y-10 py-6">
 
@@ -44,7 +47,7 @@ export default function BerandaPage() {
             className="font-bold leading-tight mb-4 animate-fade-up stagger-1"
             style={{ fontSize: "clamp(2rem, 5vw, 3rem)", color: C.text }}
           >
-            Saya Satria Alfata
+            {t.home.headline}
           </h1>
 
           {/* Location row */}
@@ -54,7 +57,7 @@ export default function BerandaPage() {
               style={{ color: C.muted }}
             >
               <MapPin size={13} />
-              Berdomisili di Semarang, Indonesia
+              {t.home.location}
             </span>
             <span
               className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[11px] font-semibold"
@@ -65,7 +68,7 @@ export default function BerandaPage() {
               }}
             >
               <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: C.green }} />
-              Onsite
+              {t.home.status}
             </span>
           </div>
 
@@ -74,9 +77,7 @@ export default function BerandaPage() {
             className="text-sm leading-relaxed mb-8 max-w-md animate-fade-up stagger-3"
             style={{ color: C.muted }}
           >
-            Mahasiswa S1 Sains Data yang berfokus pada Data Engineering dan AI Engineering.
-            Memiliki ketertarikan pada pengolahan data, machine learning, dan pengembangan aplikasi modern.
-            Selalu berusaha membangun solusi yang efektif, inovatif, dan berorientasi pada kebutuhan pengguna.
+            {t.home.description}
           </p>
 
           {/* CTA buttons */}
@@ -86,7 +87,7 @@ export default function BerandaPage() {
               className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
               style={{ borderColor: C.text, color: C.text }}
             >
-              Lihat Portofolio
+              {t.home.viewPortfolio}
               <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
             <a
@@ -95,7 +96,7 @@ export default function BerandaPage() {
               style={{ backgroundColor: C.card, borderColor: C.border, color: C.muted }}
             >
               <Download size={14} className="transition-transform duration-300 group-hover:translate-y-0.5" />
-              Unduh CV
+              {t.home.downloadCv}
             </a>
           </div>
         </div>
@@ -151,7 +152,7 @@ export default function BerandaPage() {
             {"<>"}
           </span>
           <h2 className="text-[18px] font-semibold" style={{ color: C.text }}>
-            Keahlian Teknologi
+            {t.home.techSkills}
           </h2>
         </div>
 
@@ -164,7 +165,7 @@ export default function BerandaPage() {
         {/* Section header */}
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-[18px] font-semibold" style={{ color: C.text }}>
-            GitHub Contributions
+            {t.home.githubContributions}
           </h2>
           <a
             href="https://github.com/satrialfata"
@@ -173,7 +174,7 @@ export default function BerandaPage() {
             className="inline-flex items-center gap-1.5 text-[13px] transition-all duration-300 hover:opacity-70 hover:translate-x-1"
             style={{ color: C.muted }}
           >
-            Lihat di GitHub
+            {t.home.viewOnGithub}
             <ExternalLink size={12} />
           </a>
         </div>

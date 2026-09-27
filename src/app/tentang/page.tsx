@@ -3,19 +3,13 @@
 import { Code2, ShieldCheck, Database, BrainCircuit, Briefcase, GraduationCap, ChevronDown, ChevronUp } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useState } from "react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const skills = [
   { category: "Data Science", icon: BrainCircuit, items: ["Python", "Pandas", "Scikit-learn", "TensorFlow", "Matplotlib"] },
   { category: "Cybersecurity", icon: ShieldCheck, items: ["Penetration Testing", "Kali Linux", "Wireshark", "Metasploit", "CTF"] },
   { category: "Data Engineering", icon: Database, items: ["SQL", "PostgreSQL", "MongoDB", "Apache Spark", "Airflow"] },
   { category: "Programming", icon: Code2, items: ["Python", "TypeScript", "Bash", "R", "Go"] },
-];
-
-const info = [
-  { label: "Lokasi", value: "Semarang, Indonesia" },
-  { label: "Status", value: "Open to Work" },
-  { label: "Bahasa", value: "ID / EN" },
-  { label: "Pendidikan", value: "S1 Sains Data" },
 ];
 
 type ExperienceItem = {
@@ -26,8 +20,8 @@ type ExperienceItem = {
   type: string;
   period: string;
   logo: string;
-  description: string;
   focus: string[];
+  descKey: string;
 };
 
 type EducationItem = {
@@ -37,10 +31,10 @@ type EducationItem = {
   location: string;
   period: string;
   logo: string;
-  description: string;
   focus: string[];
-  projects?: string;
-  extra?: string;
+  descKey: string;
+  projectsKey?: string;
+  extraKey?: string;
 };
 
 const experiences: ExperienceItem[] = [
@@ -52,8 +46,7 @@ const experiences: ExperienceItem[] = [
     type: "Internship",
     period: "Juli – November 2025",
     logo: "/img/indosoft-logo.jpg",
-    description:
-      "Mempelajari dan mengembangkan aplikasi berbasis web menggunakan Laravel dengan menerapkan konsep MVC (Model–View–Controller). Selain pengembangan perangkat lunak, terlibat dalam proses pengolahan dan migrasi data pelanggan menggunakan Microsoft Excel, termasuk pengelompokan data berdasarkan kategori layanan dan kebutuhan bisnis.",
+    descKey: "exp1Desc",
     focus: [
       "Laravel Framework",
       "Konsep MVC (Model–View–Controller)",
@@ -75,8 +68,8 @@ const educations: EducationItem[] = [
     location: "Semarang, Indonesia",
     period: "2025 – Sekarang",
     logo: "/img/unimus-logo.png",
-    description:
-      "Mempelajari konsep dan penerapan Data Science, mulai dari statistika, probabilitas, pemrograman, pengolahan data, hingga machine learning. Mengembangkan kemampuan menggunakan Python, R, SQL, dan Excel untuk mengolah, menganalisis, memvisualisasikan, dan memperoleh insight dari data.",
+    descKey: "edu1Desc",
+    projectsKey: "edu1Projects",
     focus: [
       "Data Science",
       "Python & R Programming",
@@ -89,8 +82,6 @@ const educations: EducationItem[] = [
       "Machine Learning",
       "Struktur Data & Algoritma",
     ],
-    projects:
-      "Beberapa proyek yang dikerjakan meliputi House Price Prediction, Customer Segmentation menggunakan RFM, analisis data e-commerce, serta proyek Machine Learning dan AI.",
   },
   {
     id: 2,
@@ -99,8 +90,8 @@ const educations: EducationItem[] = [
     location: "Pemalang, Indonesia",
     period: "2022 – 2025",
     logo: "/img/smkn1-logo.png",
-    description:
-      "Mempelajari dasar-dasar software development, pemrograman, algoritma, database, dan pengembangan aplikasi. Pembelajaran tersebut menjadi dasar dalam memahami proses pengembangan perangkat lunak dan melanjutkan pendidikan di bidang Data Science.",
+    descKey: "edu2Desc",
+    extraKey: "edu2Extra",
     focus: [
       "Programming & Algorithm",
       "PHP",
@@ -113,14 +104,20 @@ const educations: EducationItem[] = [
       "Software Development",
       "Git & GitHub",
     ],
-    extra:
-      "Mengembangkan berbagai proyek aplikasi dan website sebagai bagian dari pembelajaran, sekaligus membangun pemahaman mengenai struktur aplikasi, database, dan proses pengembangan perangkat lunak.",
   },
 ];
 
 export default function TentangPage() {
+  const { t } = useTranslation();
   const [expandedExperience, setExpandedExperience] = useState<number | null>(null);
   const [expandedEducation, setExpandedEducation] = useState<number | null>(null);
+
+  const info = [
+    { label: t.about.infoLocation, value: "Semarang, Indonesia" },
+    { label: t.about.infoStatus, value: "Open to Work" },
+    { label: t.about.infoLanguage, value: "ID / EN" },
+    { label: t.about.infoEducation, value: "S1 Sains Data" },
+  ];
 
   return (
     <section className="py-4 space-y-12">
@@ -128,13 +125,13 @@ export default function TentangPage() {
       {/* Header */}
       <div className="animate-fade-up">
         <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>
-          Tentang Saya
+          {t.about.sectionLabel}
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>
-          Mengenal lebih dekat
+          {t.about.title}
         </h1>
         <p className="text-sm leading-relaxed max-w-2xl" style={{ color: "var(--muted)" }}>
-          Mahasiswa S1 Sains Data yang berfokus pada Data Engineering dan AI Engineering.
+          {t.about.subtitle}
         </p>
       </div>
 
@@ -164,7 +161,7 @@ export default function TentangPage() {
                 AI Engineer & Data Engineer
               </p>
               <p className="text-sm leading-relaxed max-w-2xl" style={{ color: "var(--muted)" }}>
-                Saya adalah mahasiswa S1 Sains Data yang berfokus pada Data Engineering dan AI Engineering. Saya memiliki ketertarikan dalam membangun data pipeline, ETL, machine learning, dan aplikasi berbasis AI menggunakan Python, SQL, FastAPI, LangChain, Pinecone, Docker, serta teknologi cloud modern. Saya senang mengubah data menjadi solusi yang dapat diskalakan dan memberikan dampak nyata melalui pemanfaatan data dan kecerdasan buatan.
+                {t.about.bio}
               </p>
             </div>
           </div>
@@ -193,11 +190,11 @@ export default function TentangPage() {
             <div className="flex items-center gap-2 mb-2">
               <Briefcase size={20} style={{ color: "var(--accent)" }} />
               <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-                Pengalaman
+                {t.about.experience}
               </h2>
             </div>
             <p className="text-sm" style={{ color: "var(--muted)" }}>
-              Perjalanan profesional saya.
+              {t.about.experienceDesc}
             </p>
           </div>
 
@@ -244,53 +241,48 @@ export default function TentangPage() {
                     </div>
 
                     {/* Expandable Description */}
-                    {exp.description && (
-                      <div className="mt-3">
-                        {expandedExperience === exp.id && (
-                          <div className="mb-3 space-y-3">
-                            <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                              {exp.description}
+                    <div className="mt-3">
+                      {expandedExperience === exp.id && (
+                        <div className="mb-3 space-y-3">
+                          <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                            {t.about[exp.descKey as keyof typeof t.about] as string}
+                          </p>
+                          <div>
+                            <p className="text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--muted)", opacity: 0.7 }}>
+                              {t.about.focusCompetency}
                             </p>
-                            <div>
-                              <p
-                                className="text-[10px] uppercase tracking-widest mb-2"
-                                style={{ color: "var(--muted)", opacity: 0.7 }}
-                              >
-                                Fokus &amp; Kompetensi
-                              </p>
-                              <div className="flex flex-wrap gap-1.5">
-                                {exp.focus.map((item) => (
-                                  <span
-                                    key={item}
-                                    className="px-2.5 py-1 text-xs rounded-lg border"
-                                    style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
-                                  >
-                                    {item}
-                                  </span>
-                                ))}
-                              </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {exp.focus.map((item) => (
+                                <span
+                                  key={item}
+                                  className="px-2.5 py-1 text-xs rounded-lg border"
+                                  style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
+                                >
+                                  {item}
+                                </span>
+                              ))}
                             </div>
                           </div>
+                        </div>
+                      )}
+                      <button
+                        onClick={() => setExpandedExperience(expandedExperience === exp.id ? null : exp.id)}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium transition-all duration-300 hover:opacity-70"
+                        style={{ color: "var(--accent)" }}
+                      >
+                        {expandedExperience === exp.id ? (
+                          <>
+                            {t.about.hideDetail}
+                            <ChevronUp size={14} />
+                          </>
+                        ) : (
+                          <>
+                            {t.about.showDetail}
+                            <ChevronDown size={14} />
+                          </>
                         )}
-                        <button
-                          onClick={() => setExpandedExperience(expandedExperience === exp.id ? null : exp.id)}
-                          className="inline-flex items-center gap-1.5 text-xs font-medium transition-all duration-300 hover:opacity-70"
-                          style={{ color: "var(--accent)" }}
-                        >
-                          {expandedExperience === exp.id ? (
-                            <>
-                              Sembunyikan detail
-                              <ChevronUp size={14} />
-                            </>
-                          ) : (
-                            <>
-                              Tampilkan detail
-                              <ChevronDown size={14} />
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    )}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -307,11 +299,11 @@ export default function TentangPage() {
             <div className="flex items-center gap-2 mb-2">
               <GraduationCap size={20} style={{ color: "var(--green)" }} />
               <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-                Pendidikan
+                {t.about.education}
               </h2>
             </div>
             <p className="text-sm" style={{ color: "var(--muted)" }}>
-              Perjalanan pendidikan dan pengembangan kompetensi saya di bidang Data Science dan Software Development.
+              {t.about.educationDesc}
             </p>
           </div>
 
@@ -356,71 +348,63 @@ export default function TentangPage() {
                     </div>
 
                     {/* Expandable Description */}
-                    {edu.description && (
-                      <div className="mt-3">
-                        {expandedEducation === edu.id && (
-                          <div className="mb-3 space-y-3">
-                            <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                              {edu.description}
+                    <div className="mt-3">
+                      {expandedEducation === edu.id && (
+                        <div className="mb-3 space-y-3">
+                          <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                            {t.about[edu.descKey as keyof typeof t.about] as string}
+                          </p>
+                          <div>
+                            <p className="text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--muted)", opacity: 0.7 }}>
+                              {t.about.focusCompetency}
                             </p>
-                            <div>
-                              <p
-                                className="text-[10px] uppercase tracking-widest mb-2"
-                                style={{ color: "var(--muted)", opacity: 0.7 }}
-                              >
-                                Fokus &amp; Kompetensi
-                              </p>
-                              <div className="flex flex-wrap gap-1.5">
-                                {edu.focus.map((item) => (
-                                  <span
-                                    key={item}
-                                    className="px-2.5 py-1 text-xs rounded-lg border"
-                                    style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
-                                  >
-                                    {item}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                            {edu.projects && (
-                              <div>
-                                <p
-                                  className="text-[10px] uppercase tracking-widest mb-1.5"
-                                  style={{ color: "var(--muted)", opacity: 0.7 }}
+                            <div className="flex flex-wrap gap-1.5">
+                              {edu.focus.map((item) => (
+                                <span
+                                  key={item}
+                                  className="px-2.5 py-1 text-xs rounded-lg border"
+                                  style={{ backgroundColor: "var(--sidebar)", borderColor: "var(--border)", color: "var(--muted)" }}
                                 >
-                                  Proyek
-                                </p>
-                                <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                                  {edu.projects}
-                                </p>
-                              </div>
-                            )}
-                            {edu.extra && (
-                              <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                                {edu.extra}
-                              </p>
-                            )}
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
                           </div>
-                        )}
-                        <button
-                          onClick={() => setExpandedEducation(expandedEducation === edu.id ? null : edu.id)}
-                          className="inline-flex items-center gap-1.5 text-xs font-medium transition-all duration-300 hover:opacity-70"
-                          style={{ color: "var(--accent)" }}
-                        >
-                          {expandedEducation === edu.id ? (
-                            <>
-                              Sembunyikan detail
-                              <ChevronUp size={14} />
-                            </>
-                          ) : (
-                            <>
-                              Tampilkan detail
-                              <ChevronDown size={14} />
-                            </>
+                          {edu.projectsKey && (
+                            <div>
+                              <p className="text-[10px] uppercase tracking-widest mb-1.5" style={{ color: "var(--muted)", opacity: 0.7 }}>
+                                {t.about.projects}
+                              </p>
+                              <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                                {t.about[edu.projectsKey as keyof typeof t.about] as string}
+                              </p>
+                            </div>
                           )}
-                        </button>
-                      </div>
-                    )}
+                          {edu.extraKey && (
+                            <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                              {t.about[edu.extraKey as keyof typeof t.about] as string}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      <button
+                        onClick={() => setExpandedEducation(expandedEducation === edu.id ? null : edu.id)}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium transition-all duration-300 hover:opacity-70"
+                        style={{ color: "var(--accent)" }}
+                      >
+                        {expandedEducation === edu.id ? (
+                          <>
+                            {t.about.hideDetail}
+                            <ChevronUp size={14} />
+                          </>
+                        ) : (
+                          <>
+                            {t.about.showDetail}
+                            <ChevronDown size={14} />
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -433,7 +417,7 @@ export default function TentangPage() {
       <ScrollReveal delay={250}>
         <div className="space-y-6">
           <h2 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-            Keahlian
+            {t.about.skills}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {skills.map(({ category, icon: Icon, items }) => (

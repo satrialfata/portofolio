@@ -4,8 +4,10 @@ import { ExternalLink, CheckCircle2, X } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useState, useEffect } from "react";
 import { certificates, type Certificate } from "@/data/certificates";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function SertifikatPage() {
+  const { t } = useTranslation();
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
 
   // Handle escape key
@@ -32,10 +34,10 @@ export default function SertifikatPage() {
 
       {/* Header */}
       <div className="animate-fade-up">
-        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text)" }}>Sertifikat</p>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>Sertifikasi &amp; pencapaian</h1>
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text)" }}>{t.certificates.sectionLabel}</p>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>{t.certificates.title}</h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
-          Sertifikasi dari platform dan lembaga terpercaya di bidang data science dan keamanan siber.
+          {t.certificates.subtitle}
         </p>
       </div>
 
@@ -44,7 +46,7 @@ export default function SertifikatPage() {
         className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium animate-fade-up stagger-1"
         style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--muted)" }} >
         <CheckCircle2 size={14} style={{ color: "var(--green)" }} />
-        <span>{certificates.length} Sertifikat Diperoleh</span>
+        <span>{certificates.length} {t.certificates.certificatesObtained}</span>
       </div>
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -133,7 +135,7 @@ export default function SertifikatPage() {
               onClick={() => setSelectedCertificate(null)}
               className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl flex items-center justify-center border transition-opacity duration-300 hover:opacity-70"
               style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
-              aria-label="Tutup detail sertifikat"
+              aria-label={t.certificates.closeDetail}
             >
               <X size={20} />
             </button>
@@ -168,7 +170,7 @@ export default function SertifikatPage() {
                 {/* Issuer */}
                 <div className="space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-                    Penerbit
+                    {t.certificates.issuer}
                   </p>
                   <p className="text-base font-medium" style={{ color: "var(--text)" }}>
                     {selectedCertificate.issuer}
@@ -178,7 +180,7 @@ export default function SertifikatPage() {
                 {/* Year */}
                 <div className="space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-                    Tahun
+                    {t.certificates.year}
                   </p>
                   <p className="text-base font-medium" style={{ color: "var(--text)" }}>
                     {selectedCertificate.date}
@@ -188,7 +190,7 @@ export default function SertifikatPage() {
                 {/* Description */}
                 <div className="space-y-2">
                   <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-                    Deskripsi
+                    {t.certificates.description}
                   </p>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
                     {selectedCertificate.description}
@@ -205,7 +207,7 @@ export default function SertifikatPage() {
                     style={{ backgroundColor: "var(--accent)", borderColor: "var(--accent)", color: "var(--bg)" }}
                   >
                     <ExternalLink size={16} />
-                    Lihat Sertifikat
+                    {t.certificates.viewCertificate}
                   </a>
                 )}
               </div>

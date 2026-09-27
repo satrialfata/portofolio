@@ -6,28 +6,32 @@ import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaHome, FaUser, FaBriefcase, FaTrophy, FaFolder } from "react-icons/fa";
 import { Moon, Globe, ChevronDown } from "lucide-react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 type NavLink = { href: string; label: string; icon: typeof FaHome };
 type NavParent = { label: string; icon: typeof FaHome; children: { href: string; label: string }[] };
 type NavItem = NavLink | NavParent;
 
-const NAV: NavItem[] = [
-  { href: "/", label: "Beranda", icon: FaHome },
-  { href: "/tentang", label: "Tentang", icon: FaUser },
-  { href: "/portofolio", label: "Portofolio", icon: FaBriefcase },
-  {
-    label: "Resources",
-    icon: FaFolder,
-    children: [
-      { href: "/resources", label: "Overview" },
-      { href: "/resources/snippets", label: "Snippets" },
-      { href: "/resources/templates", label: "Templates" },
-      { href: "/resources/tools", label: "Tools" },
-    ],
-  },
-  { href: "/sertifikat", label: "Sertifikat", icon: FaTrophy },
-  { href: "/kontak", label: "Kontak", icon: FaEnvelope },
-];
+function useNav(): NavItem[] {
+  const { t } = useTranslation();
+  return [
+    { href: "/", label: t.nav.beranda, icon: FaHome },
+    { href: "/tentang", label: t.nav.tentang, icon: FaUser },
+    { href: "/portofolio", label: t.nav.portofolio, icon: FaBriefcase },
+    {
+      label: t.nav.resources,
+      icon: FaFolder,
+      children: [
+        { href: "/resources", label: t.nav.overview },
+        { href: "/resources/snippets", label: t.nav.snippets },
+        { href: "/resources/templates", label: t.nav.templates },
+        { href: "/resources/tools", label: t.nav.tools },
+      ],
+    },
+    { href: "/sertifikat", label: t.nav.sertifikat, icon: FaTrophy },
+    { href: "/kontak", label: t.nav.kontak, icon: FaEnvelope },
+  ];
+}
 
 const SOCIAL = [
   { href: "https://github.com/satrialfata", icon: FaGithub, label: "GitHub" },
@@ -48,7 +52,13 @@ const C = {
   accent: "var(--accent)",
 };
 
-function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, onToggleResources }: { pathname: string; mounted: boolean; isDark: boolean; onThemeToggle: () => void; expanded: boolean; onToggleResources: () => void }) {
+function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, onToggleResources, lang, onToggleLang, t }: {
+  pathname: string; mounted: boolean; isDark: boolean; onThemeToggle: () => void;
+  expanded: boolean; onToggleResources: () => void;
+  lang: "id" | "en"; onToggleLang: () => void;
+  t: ReturnType<typeof useTranslation>["t"];
+}) {
+  const NAV = useNav();
   return (
     <div
       className="flex flex-col h-full animate-sidebar-enter"
@@ -67,49 +77,42 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
           />
         </div>
 
-        <h2
-          className="text-base font-bold"
-          style={{ color: C.text }}
-        >
+        <h2 className="text-base font-bold" style={{ color: C.text }}>
           Satria Alfata
         </h2>
 
-        <p
-          className="text-sm mb-4"
-          style={{ color: C.muted }}
-        >
-          Data Science Enthusiast
+        <p className="text-sm mb-4" style={{ color: C.muted }}>
+          {t.sidebar.tagline}
         </p>
 
         {mounted && (
-          <div
-            className="flex items-center w-full rounded-full border"
-            style={{ borderColor: C.border }}
-          >
+          <div className="flex items-center w-full rounded-full border" style={{ borderColor: C.border }}>
             <button
               onClick={onThemeToggle}
               className="flex-1 flex items-center justify-center gap-1.5 py-1 text-xs transition-opacity duration-300 hover:opacity-70"
               style={{ color: C.text }}
             >
               <Moon size={13} />
-              {isDark ? "Light Mode" : "Dark Mode"}
+              {isDark ? t.sidebar.lightMode : t.sidebar.darkMode}
             </button>
 
             <div className="w-px h-3" style={{ backgroundColor: C.border }} />
 
-            <div className="flex-1 flex items-center justify-center gap-1.5 py-1 text-xs" style={{ color: C.text }}>
+            <button
+              onClick={onToggleLang}
+              className="flex-1 flex items-center justify-center gap-1.5 py-1 text-xs transition-opacity duration-300 hover:opacity-70"
+              style={{ color: C.text }}
+              aria-label="Toggle language"
+            >
               <Globe size={13} />
-              <span>Indonesia</span>
+              <span>{lang === "id" ? "Indonesia" : "English"}</span>
               <ChevronDown size={11} />
-            </div>
+            </button>
           </div>
         )}
       </div>
 
-      <div
-        className="mx-4 h-px mb-4"
-        style={{ backgroundColor: C.border }}
-      />
+      <div className="mx-4 h-px mb-4" style={{ backgroundColor: C.border }} />
 
       {/* Navigation */}
       <nav className="flex-1 px-3">
@@ -178,12 +181,9 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
         </ul>
       </nav>
 
-      <div
-        className="mx-4 h-px my-4"
-        style={{ backgroundColor: C.border }}
-      />
+      <div className="mx-4 h-px my-4" style={{ backgroundColor: C.border }} />
 
-      {/* Social + Theme */}
+      {/* Social */}
       <div className="px-4 mb-4 flex justify-center gap-2">
         {SOCIAL.map(({ href, icon: Icon, label }) => (
           <a
@@ -201,17 +201,15 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
       </div>
 
       {/* Footer */}
-      <p
-        className="text-center text-xs pb-4"
-        style={{ color: C.muted }}
-      >
-        Made with ♥ by satrialfata
+      <p className="text-center text-xs pb-4" style={{ color: C.muted }}>
+        {t.sidebar.footer}
       </p>
     </div>
   );
 }
 
 export default function Sidebar() {
+  const { lang, t, setLang } = useTranslation();
   const pathname = usePathname();
   const { setTheme, resolvedTheme } = useTheme();
 
@@ -244,6 +242,10 @@ export default function Sidebar() {
 
   const handleThemeToggle = () => {
     setTheme(isDark ? "light" : "dark");
+  };
+
+  const handleToggleLang = () => {
+    setLang(lang === "id" ? "en" : "id");
   };
 
   return (
@@ -280,7 +282,12 @@ export default function Sidebar() {
           : "-translate-x-full"
           }`}
       >
-        <SidebarContent pathname={pathname} mounted={mounted} isDark={isDark} onThemeToggle={handleThemeToggle} expanded={expanded} onToggleResources={() => setManualExpanded((v) => !v)} />
+        <SidebarContent
+          pathname={pathname} mounted={mounted} isDark={isDark}
+          onThemeToggle={handleThemeToggle} expanded={expanded}
+          onToggleResources={() => setManualExpanded((v) => !v)}
+          lang={lang} onToggleLang={handleToggleLang} t={t}
+        />
       </aside>
     </>
   );

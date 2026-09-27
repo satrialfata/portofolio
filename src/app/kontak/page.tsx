@@ -1,5 +1,8 @@
+"use client";
+
 import { Mail, GitBranch, Link2, MessageCircle } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const EMAIL = "satriadev@gmail.com";
 
@@ -10,21 +13,23 @@ const socialLinks = [
 ];
 
 export default function KontakPage() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-4 space-y-8">
 
       {/* Header */}
       <div className="animate-fade-up">
-        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>Kontak</p>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>Mari terhubung</h1>
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>{t.contact.sectionLabel}</p>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>{t.contact.title}</h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
-          Punya proyek menarik atau ingin berdiskusi? Jangan ragu untuk menghubungi saya.
+          {t.contact.subtitle}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        {/* Email card: the one real action on this page */}
+        {/* Email card */}
         <ScrollReveal delay={100}>
           <div
             className="h-full p-6 rounded-2xl border card-hover flex flex-col justify-center gap-4"
@@ -39,10 +44,10 @@ export default function KontakPage() {
 
             <div>
               <h2 className="text-lg font-bold mb-1.5" style={{ color: "var(--text)" }}>
-                Kirim email langsung
+                {t.contact.emailTitle}
               </h2>
               <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                Untuk kerja sama, diskusi proyek, atau pertanyaan seputar data dan pengembangan software.
+                {t.contact.emailDesc}
               </p>
             </div>
 
@@ -56,7 +61,7 @@ export default function KontakPage() {
               style={{ backgroundColor: "var(--accent)", color: "var(--bg)" }}
             >
               <Mail size={15} />
-              Kirim email
+              {t.contact.sendEmail}
             </a>
           </div>
         </ScrollReveal>

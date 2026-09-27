@@ -4,8 +4,10 @@ import { useMemo, useState } from "react";
 import { ExternalLink, Search, X } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { TOOL_CATEGORIES, tools } from "@/data/tools";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function ToolsPage() {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
 
   const grouped = useMemo(() => {
@@ -28,13 +30,13 @@ export default function ToolsPage() {
       {/* Header */}
       <div className="animate-fade-up">
         <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>
-          Resources / Tools
+          {t.toolsPage.sectionLabel}
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>
-          Tools
+          {t.toolsPage.title}
         </h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
-          Software yang berguna untuk development, Data Science, dan AI. Semua link menuju sumber resmi.
+          {t.toolsPage.subtitle}
         </p>
       </div>
 
@@ -49,8 +51,8 @@ export default function ToolsPage() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search tools..."
-          aria-label="Search tools"
+          placeholder={t.toolsPage.searchPlaceholder}
+          aria-label={t.toolsPage.searchPlaceholder}
           className="w-full rounded-xl border pl-10 pr-10 py-2.5 text-sm transition-all duration-200"
           style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--text)" }}
         />
@@ -72,7 +74,7 @@ export default function ToolsPage() {
           className="rounded-2xl border p-8 text-center text-sm"
           style={{ backgroundColor: "var(--card)", borderColor: "var(--border)", color: "var(--muted)" }}
         >
-          Tidak ada tool yang cocok dengan pencarianmu.
+          {t.toolsPage.empty}
         </div>
       ) : (
         <div className="space-y-10">
@@ -84,7 +86,7 @@ export default function ToolsPage() {
                 </h2>
                 <div className="flex-1 h-px" style={{ backgroundColor: "var(--border)" }} />
                 <span className="text-xs" style={{ color: "var(--muted)" }}>
-                  {group.items.length} tools
+                  {group.items.length} {t.toolsPage.toolsCount}
                 </span>
               </div>
 
@@ -128,7 +130,7 @@ export default function ToolsPage() {
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all duration-200 hover:-translate-y-0.5"
                           style={{ backgroundColor: "transparent", borderColor: "var(--border)", color: "var(--text)" }}
                         >
-                          Official Website
+                          {t.toolsPage.officialWebsite}
                           <ExternalLink size={11} />
                         </a>
                         {tool.docs && (
@@ -139,7 +141,7 @@ export default function ToolsPage() {
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all duration-200 hover:-translate-y-0.5"
                             style={{ backgroundColor: "transparent", borderColor: "var(--border)", color: "var(--text)" }}
                           >
-                            Documentation
+                            {t.toolsPage.documentation}
                             <ExternalLink size={11} />
                           </a>
                         )}
@@ -151,7 +153,7 @@ export default function ToolsPage() {
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 hover:-translate-y-0.5"
                             style={{ backgroundColor: "var(--accent)", color: "var(--bg)" }}
                           >
-                            Download
+                            {t.toolsPage.download}
                             <ExternalLink size={11} />
                           </a>
                         )}

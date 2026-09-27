@@ -5,8 +5,10 @@ import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { getTechIcon } from "@/utils/techIcons";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function PortofolioPage() {
+  const { t } = useTranslation();
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
     target.style.display = 'none';
@@ -21,10 +23,10 @@ export default function PortofolioPage() {
 
       {/* Header */}
       <div className="animate-fade-up">
-        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>Portofolio</p>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>Proyek saya</h1>
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>{t.portfolio.sectionLabel}</p>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>{t.portfolio.title}</h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
-          Kumpulan proyek di bidang machine learning, analisis data, dan keamanan siber.
+          {t.portfolio.subtitle}
         </p>
       </div>
 
@@ -109,7 +111,7 @@ export default function PortofolioPage() {
                       {project.year}
                     </span>
                     <div className="flex items-center gap-1 text-xs font-medium transition-all duration-300 group-hover:translate-x-1" style={{ color: "var(--accent)" }}>
-                      Lihat detail
+                      {t.portfolio.viewDetail}
                       <ArrowRight size={12} />
                     </div>
                   </div>

@@ -3,44 +3,47 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Code, Layout, Wrench } from "lucide-react";
-
-const resourceCards = [
-  {
-    title: "Snippets",
-    description: "Reusable code snippets for everyday development.",
-    action: "Lihat snippets",
-    href: "/resources/snippets",
-    icon: Code,
-  },
-  {
-    title: "Templates",
-    description: "Practical templates for students.",
-    action: "Lihat template",
-    href: "/resources/templates",
-    icon: Layout,
-  },
-  {
-    title: "Tools",
-    description: "Useful software and tools for development, Data Science, and AI.",
-    action: "Lihat tools",
-    href: "/resources/tools",
-    icon: Wrench,
-  },
-];
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function ResourcesPage() {
+  const { t } = useTranslation();
+
+  const resourceCards = [
+    {
+      title: "Snippets",
+      description: t.resources.snippetsDesc,
+      action: t.resources.snippetsAction,
+      href: "/resources/snippets",
+      icon: Code,
+    },
+    {
+      title: "Templates",
+      description: t.resources.templatesDesc,
+      action: t.resources.templatesAction,
+      href: "/resources/templates",
+      icon: Layout,
+    },
+    {
+      title: "Tools",
+      description: t.resources.toolsDesc,
+      action: t.resources.toolsAction,
+      href: "/resources/tools",
+      icon: Wrench,
+    },
+  ];
+
   return (
     <section className="py-4 space-y-8">
       {/* Header */}
       <div className="animate-fade-up">
         <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted)" }}>
-          Resources / Overview
+          {t.resources.sectionLabel}
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3" style={{ color: "var(--text)" }}>
-          Resources
+          {t.resources.title}
         </h1>
         <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--muted)" }}>
-          Useful things I&apos;ve collected and built for students and developers.
+          {t.resources.subtitle}
         </p>
       </div>
 
