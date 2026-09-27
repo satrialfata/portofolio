@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaHome, FaUser, FaBriefcase, FaTrophy, FaFolder, FaChevronDown } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaHome, FaUser, FaBriefcase, FaTrophy, FaFolder } from "react-icons/fa";
+import { Moon, Globe, ChevronDown } from "lucide-react";
 
 type NavLink = { href: string; label: string; icon: typeof FaHome };
 type NavParent = { label: string; icon: typeof FaHome; children: { href: string; label: string }[] };
@@ -56,7 +57,7 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
       {/* Profile */}
       <div className="flex flex-col items-center px-5 pt-8 pb-6 animate-fade-in">
         <div
-          className="w-[72px] h-[72px] rounded-full overflow-hidden border-2 mb-4"
+          className="w-[80px] h-[80px] rounded-full overflow-hidden border-2 mb-4"
           style={{ borderColor: C.border }}
         >
           <img
@@ -67,35 +68,41 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
         </div>
 
         <h2
-          className="text-sm font-bold"
+          className="text-base font-bold"
           style={{ color: C.text }}
         >
           Satria Alfata
         </h2>
 
         <p
-          className="text-xs mb-3"
+          className="text-sm mb-4"
           style={{ color: C.muted }}
         >
           Data Science Enthusiast
         </p>
 
         {mounted && (
-          <button
-            onClick={onThemeToggle}
-            className="group text-xs px-3 py-1.5 rounded-full border transition-all duration-300 mt-1 font-medium hover:opacity-80"
-            style={{
-              color: C.text,
-              borderColor: C.border,
-              backgroundColor: "transparent"
-            }}
+          <div
+            className="flex items-center w-full rounded-full border"
+            style={{ borderColor: C.border }}
           >
-            <span className="inline-block transition-transform duration-300 group-hover:rotate-180">
-              {isDark ? "☀️" : "🌙"}
-            </span>
-            {" "}
-            {isDark ? "Light Mode" : "Dark Mode"}
-          </button>
+            <button
+              onClick={onThemeToggle}
+              className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium transition-opacity duration-300 hover:opacity-70"
+              style={{ color: C.text }}
+            >
+              <Moon size={16} />
+              {isDark ? "Light Mode" : "Dark Mode"}
+            </button>
+
+            <div className="w-px h-5" style={{ backgroundColor: C.border }} />
+
+            <div className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium" style={{ color: C.text }}>
+              <Globe size={16} />
+              <span>Indonesia</span>
+              <ChevronDown size={14} />
+            </div>
+          </div>
         )}
       </div>
 
@@ -123,7 +130,7 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
                   >
                     <Icon className="text-lg" />
                     {item.label}
-                    <FaChevronDown size={12} className={`ml-auto transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
+                    <ChevronDown size={12} className={`ml-auto transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
                   </button>
                   {expanded && (
                     <ul className="mt-1 space-y-0.5 pl-2 animate-fade-in">
