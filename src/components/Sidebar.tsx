@@ -88,19 +88,19 @@ function SidebarContent({ pathname, mounted, isDark, onThemeToggle, expanded, on
           >
             <button
               onClick={onThemeToggle}
-              className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium transition-opacity duration-300 hover:opacity-70"
+              className="flex-1 flex items-center justify-center gap-1.5 py-1 text-xs transition-opacity duration-300 hover:opacity-70"
               style={{ color: C.text }}
             >
-              <Moon size={16} />
+              <Moon size={13} />
               {isDark ? "Light Mode" : "Dark Mode"}
             </button>
 
-            <div className="w-px h-5" style={{ backgroundColor: C.border }} />
+            <div className="w-px h-3" style={{ backgroundColor: C.border }} />
 
-            <div className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium" style={{ color: C.text }}>
-              <Globe size={16} />
+            <div className="flex-1 flex items-center justify-center gap-1.5 py-1 text-xs" style={{ color: C.text }}>
+              <Globe size={13} />
               <span>Indonesia</span>
-              <ChevronDown size={14} />
+              <ChevronDown size={11} />
             </div>
           </div>
         )}
