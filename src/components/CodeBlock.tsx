@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 
 export type CodeLang =
   | "bash"
+  | "powershell"
   | "python"
   | "sql"
   | "php"
@@ -44,6 +45,16 @@ const OPERATOR = /[+\-*/%=<>!&|^~]+/y;
 
 const CFG: Record<CodeLang, LangConfig> = {
   bash: {
+    comments: [/#.*/y],
+    strings: [/"(?:[^"\\\n]|\\.)*"/y, /'[^'\n]*'/y],
+    variables: [/\$\{[^}]*\}/y, /\$[A-Za-z_]\w*/y],
+    number: /\d+(?:\.\d+)?/y,
+    word: /[A-Za-z_][\w-]*/y,
+    keywords: [],
+    functionIfParen: true,
+    commandAtLineStart: true,
+  },
+  powershell: {
     comments: [/#.*/y],
     strings: [/"(?:[^"\\\n]|\\.)*"/y, /'[^'\n]*'/y],
     variables: [/\$\{[^}]*\}/y, /\$[A-Za-z_]\w*/y],

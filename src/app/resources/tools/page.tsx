@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ExternalLink, Search, X } from "lucide-react";
+import { ExternalLink, Search, X, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import { TOOL_CATEGORIES, tools } from "@/data/tools";
 import { useTranslation } from "@/contexts/LanguageContext";
@@ -93,27 +94,103 @@ export default function ToolsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {group.items.map((tool, idx) => (
                   <ScrollReveal key={tool.name} delay={idx * 50}>
+                    {tool.detail ? (
+                      <Link
+                        href={tool.detail}
+                        className="flex flex-col h-full rounded-2xl border p-5 card-hover group cursor-pointer"
+                        style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
+                      >
+                        {tool.logo && (
+                          Array.isArray(tool.logo) ? (
+                            <div className="flex items-center gap-2.5 mb-3 h-11">
+                              {tool.logo.map((logoPath, i) => (
+                                <img
+                                  key={logoPath}
+                                  src={logoPath}
+                                  alt={`${tool.name} logo ${i + 1}`}
+                                  width={28}
+                                  height={28}
+                                  className="w-7 h-7 object-contain"
+                                  onError={(e) => {
+                                    e.currentTarget.style.display = "none";
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          ) : (
+                            <div
+                              className="w-11 h-11 rounded-xl flex items-center justify-center mb-3"
+                              style={{ backgroundColor: "var(--logo-bg)", border: "1px solid var(--border)" }}
+                            >
+                              <img
+                                src={tool.logo}
+                                alt={`${tool.name} logo`}
+                                width={24}
+                                height={24}
+                                className="w-6 h-6 object-contain"
+                                onError={(e) => {
+                                  const tile = e.currentTarget.closest("div");
+                                  if (tile instanceof HTMLElement) tile.style.display = "none";
+                                }}
+                              />
+                            </div>
+                          )
+                        )}
+                        <h3 className="text-base font-semibold mb-1 group-hover:underline" style={{ color: "var(--text)" }}>
+                          {tool.name}
+                        </h3>
+                        <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: "var(--muted)" }}>
+                          {tool.description}
+                        </p>
+
+                        <span
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all duration-200 group-hover:-translate-y-0.5"
+                          style={{ backgroundColor: "var(--accent)", color: "var(--bg)" }}
+                        >
+                          Lihat Detail
+                          <ChevronRight size={12} />
+                        </span>
+                      </Link>
+                    ) : (
                     <div
                       className="flex flex-col h-full rounded-2xl border p-5 card-hover"
                       style={{ backgroundColor: "var(--card)", borderColor: "var(--border)" }}
                     >
                       {tool.logo && (
-                        <div
-                          className="w-11 h-11 rounded-xl flex items-center justify-center mb-3"
-                          style={{ backgroundColor: "var(--logo-bg)", border: "1px solid var(--border)" }}
-                        >
-                          <img
-                            src={tool.logo}
-                            alt={`${tool.name} logo`}
-                            width={24}
-                            height={24}
-                            className="w-6 h-6 object-contain"
-                            onError={(e) => {
-                              const tile = e.currentTarget.closest("div");
-                              if (tile instanceof HTMLElement) tile.style.display = "none";
-                            }}
-                          />
-                        </div>
+                        Array.isArray(tool.logo) ? (
+                          <div className="flex items-center gap-2.5 mb-3 h-11">
+                            {tool.logo.map((logoPath, i) => (
+                              <img
+                                key={logoPath}
+                                src={logoPath}
+                                alt={`${tool.name} logo ${i + 1}`}
+                                width={28}
+                                height={28}
+                                className="w-7 h-7 object-contain"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = "none";
+                                }}
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <div
+                            className="w-11 h-11 rounded-xl flex items-center justify-center mb-3"
+                            style={{ backgroundColor: "var(--logo-bg)", border: "1px solid var(--border)" }}
+                          >
+                            <img
+                              src={tool.logo}
+                              alt={`${tool.name} logo`}
+                              width={24}
+                              height={24}
+                              className="w-6 h-6 object-contain"
+                              onError={(e) => {
+                                const tile = e.currentTarget.closest("div");
+                                if (tile instanceof HTMLElement) tile.style.display = "none";
+                              }}
+                            />
+                          </div>
+                        )
                       )}
                       <h3 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>
                         {tool.name}
@@ -159,6 +236,7 @@ export default function ToolsPage() {
                         )}
                       </div>
                     </div>
+                    )}
                   </ScrollReveal>
                 ))}
               </div>

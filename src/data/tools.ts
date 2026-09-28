@@ -12,7 +12,8 @@ export type Tool = {
   docs?: string;
   download?: string;
   github?: string;
-  logo?: string;
+  logo?: string | string[];
+  detail?: string;
 };
 
 export const tools: Tool[] = [
@@ -168,14 +169,28 @@ export const tools: Tool[] = [
     logo: "/tools/googlecolab.svg",
   },
   {
-    name: "Microsoft Office 365",
+    name: "Microsoft Office",
     description:
-      "Productivity suite yang mencakup aplikasi seperti Word, Excel, PowerPoint, dan layanan Microsoft lainnya.",
+      "Suite produktivitas untuk membuat dokumen, spreadsheet, dan presentasi.",
     category: "Productivity",
     website: "https://www.microsoft.com/microsoft-365",
     docs: "https://learn.microsoft.com/en-us/microsoft-365/",
     download: "https://pixeldrain.com/u/yLhscNhZ",
-    logo: "/tools/microsoft365.svg",
+    logo: [
+      "/tools/microsoftword.svg",
+      "/tools/microsoftexcel.svg",
+      "/tools/microsoftpowerpoint.svg",
+    ],
+  },
+  {
+    name: "Microsoft Activation Scripts (MAS)",
+    description:
+      "Open-source Windows and Office activation & troubleshooting resource.",
+    category: "Productivity",
+    website: "https://github.com/massgravel/Microsoft-Activation-Scripts",
+    github: "https://github.com/massgravel/Microsoft-Activation-Scripts",
+    logo: "/tools/mas.svg",
+    detail: "/resources/tools/mas",
   },
 ];
 
