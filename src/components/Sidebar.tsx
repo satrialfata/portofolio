@@ -253,7 +253,7 @@ export default function Sidebar() {
       {/* Mobile Header */}
       <header className="fixed top-0 left-0 right-0 z-40 flex justify-between items-center p-4 md:hidden backdrop-blur-md transition-all duration-300" style={{ backgroundColor: "var(--sidebar)" }}>
         <span className="font-bold" style={{ color: C.text }}>
-          Satria
+          satrialfata.
         </span>
 
         <button

@@ -155,7 +155,7 @@ export default function TentangPage() {
             {/* Name and Role */}
             <div className="flex-1">
               <h2 className="text-xl font-bold mb-1" style={{ color: "var(--text)" }}>
-                Satria AlFata
+                Satria Alfata
               </h2>
               <p className="text-base mb-4" style={{ color: "var(--accent)" }}>
                 AI Engineer & Data Engineer
