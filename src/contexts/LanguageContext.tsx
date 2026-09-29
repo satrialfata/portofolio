@@ -17,13 +17,13 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 function getSnapshot(): Lang {
-  if (typeof window === "undefined") return "id";
+  if (typeof window === "undefined") return "en";
   const stored = localStorage.getItem("language");
-  return stored === "en" ? "en" : "id";
+  return stored === "id" ? "id" : "en";
 }
 
 function getServerSnapshot(): Lang {
-  return "id";
+  return "en";
 }
 
 let listeners: Array<() => void> = [];
